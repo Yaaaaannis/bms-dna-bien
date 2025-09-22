@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment, TransformControls, Stats, AsciiRenderer } from "@react-three/drei";
+import { Environment, TransformControls, Stats, AsciiRenderer } from "@react-three/drei";
 import { DnaModel } from "./Dna";
 import { useRef, useState } from "react";
 
