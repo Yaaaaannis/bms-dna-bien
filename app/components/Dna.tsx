@@ -17,7 +17,7 @@ export const DnaModel = forwardRef<Group, DnaModelProps>((props, ref) => {
   const group = useRef<Group>(null)
   const meshRef = useRef<Mesh>(null)
   const { nodes, animations } = useGLTF('/dna.glb')
-  const { actions } = useAnimations(animations, ref || group)
+  const { actions } = useAnimations(animations, ref || group as any)
 
   // Créer un matériau chrome wireframe
   const chromeMaterial = new MeshStandardMaterial({
@@ -46,7 +46,7 @@ export const DnaModel = forwardRef<Group, DnaModelProps>((props, ref) => {
       const firstAction = Object.values(actions)[0]
       if (firstAction) {
         firstAction.play()
-        firstAction.setLoop(2, Infinity) // Boucle infinie
+        firstAction.setLoop(Infinity, Infinity) // Boucle infinie
         firstAction.timeScale = 0.5 // Vitesse à 0.5x (plus lent)
       }
     }
@@ -74,7 +74,7 @@ export const DnaModel = forwardRef<Group, DnaModelProps>((props, ref) => {
         >
           <Edges
             geometry={(nodes.DNA_logo_3d as Mesh).geometry}
-            material={wireframeMaterial}
+            material={wireframeMaterial as any}
             scale={1.001} // Légèrement plus grand pour éviter le z-fighting
           />
         </mesh>

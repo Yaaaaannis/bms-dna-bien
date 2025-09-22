@@ -4,13 +4,14 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, TransformControls, Stats, AsciiRenderer } from "@react-three/drei";
 import { DnaModel } from "./Dna";
 import { useRef, useState } from "react";
+import { Group } from "three";
 
 export default function Background() {
   const [position, setPosition] = useState([2.885, 0.000, 2.439]);
   const [rotation, setRotation] = useState([-73.5 * Math.PI / 180, 84.7 * Math.PI / 180, 18.5 * Math.PI / 180]);
   const [scale, setScale] = useState([1.000, 0.746, 1.000]);
   const [mode, setMode] = useState<'translate' | 'rotate' | 'scale'>('translate');
-  const meshRef = useRef();
+  const meshRef = useRef<Group>(null);
 
   const handleObjectChange = () => {
     if (meshRef.current) {
@@ -50,13 +51,13 @@ export default function Background() {
         
         <DnaModel 
           ref={meshRef}
-          position={position}
-          scale={scale}
-          rotation={rotation}
+          position={position as [number, number, number]}
+          scale={scale as [number, number, number]}
+          rotation={rotation as [number, number, number]}
         />
         
         <TransformControls
-          object={meshRef}
+          object={meshRef.current || undefined}
           mode={mode}
           onObjectChange={handleObjectChange}
         />
