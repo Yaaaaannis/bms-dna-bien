@@ -29,16 +29,7 @@ export default function Home() {
       <Header />
 
       {/* Contenu de la page par-dessus la scène 3D */}
-      <div className="relative z-5 min-h-screen flex items-center justify-center pointer-events-none">
-        <div className="text-center">
-          <h1 className="text-6xl font-bold text-white mb-8">
-            BMS DNA
-          </h1>
-          <p className="text-xl text-gray-300 mb-12">
-            Innovation & Création Digitale
-          </p>
-        </div>
-      </div>
+      
     </div>
   );
 }

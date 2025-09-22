@@ -72,8 +72,7 @@ export default function Background() {
           characters=" .:-=+*#%@"
           invert={false}
           color={false}
-          resolution={0.25}
-          renderIndex={1}
+          resolution={0.15}
         />
       </Canvas>
       
