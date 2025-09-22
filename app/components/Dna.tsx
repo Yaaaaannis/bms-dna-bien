@@ -17,7 +17,7 @@ export const DnaModel = forwardRef<Group, DnaModelProps>((props, ref) => {
   const group = useRef<Group>(null)
   const meshRef = useRef<Mesh>(null)
   const { nodes, animations } = useGLTF('/dna.glb')
-  const { actions } = useAnimations(animations, ref || group as any)
+  const { actions } = useAnimations(animations, ref || group)
 
   // Créer un matériau chrome wireframe
   const chromeMaterial = new MeshStandardMaterial({
@@ -74,7 +74,7 @@ export const DnaModel = forwardRef<Group, DnaModelProps>((props, ref) => {
         >
           <Edges
             geometry={(nodes.DNA_logo_3d as Mesh).geometry}
-            material={wireframeMaterial as any}
+            material={wireframeMaterial}
             scale={1.001} // Légèrement plus grand pour éviter le z-fighting
           />
         </mesh>
