@@ -1,34 +1,34 @@
 'use client';
 
 import { Canvas } from "@react-three/fiber";
-import { Environment, TransformControls, Stats, AsciiRenderer } from "@react-three/drei";
-import { DnaModel } from "./Dna";
-import { useRef, useState } from "react";
-import { Group } from "three";
+import { Environment, Stats, Sphere } from "@react-three/drei";
+import { Model } from "./Model";
+import Connections3D from "./Connections3D";
+import { useRef, useState, useCallback } from "react";
+import { Group, Vector3 } from "three";
 
-export default function Background() {
-  const [position, setPosition] = useState([2.885, 0.000, 2.439]);
-  const [rotation, setRotation] = useState([-73.5 * Math.PI / 180, 84.7 * Math.PI / 180, 18.5 * Math.PI / 180]);
-  const [scale, setScale] = useState([1.000, 0.746, 1.000]);
-  const [mode, setMode] = useState<'translate' | 'rotate' | 'scale'>('translate');
+interface BackgroundProps {
+  servicePoints: Array<{ position: [number, number, number]; name: string }>;
+  isServiceVisible: boolean;
+}
+
+export default function Background({ servicePoints, isServiceVisible }: BackgroundProps) {
   const meshRef = useRef<Group>(null);
+  const [connectionPoints, setConnectionPoints] = useState<Vector3[]>([]);
 
-  const handleObjectChange = () => {
-    if (meshRef.current) {
-      const pos = meshRef.current.position;
-      const rot = meshRef.current.rotation;
-      const scl = meshRef.current.scale;
-      
-      setPosition([pos.x, pos.y, pos.z]);
-      setRotation([rot.x, rot.y, rot.z]);
-      setScale([scl.x, scl.y, scl.z]);
-    }
-  };
+  const handleConnectionPointsUpdate = useCallback((points: Vector3[]) => {
+    setConnectionPoints(points);
+  }, []);
+  
+  // Position fixe du modèle avec les coordonnées optimales
+  const position = [4.240, -1.055, 2.439] as [number, number, number];
+  const rotation = [-56.7 * Math.PI / 180, -122.4 * Math.PI / 180, 12.0 * Math.PI / 180] as [number, number, number];
+  const scale = [0.701, 0.700, 0.752] as [number, number, number];
 
   return (
     <div className="fixed inset-0 z-0 w-full h-full">
       <Canvas
-        camera={{ position: [3, 5, 2], fov: 75 }}
+        camera={{ position: [1, 5, 2], fov: 75 }}
         style={{ 
           background: 'black',
           width: '100%',
@@ -49,82 +49,43 @@ export default function Background() {
         />
         <pointLight position={[3, -2, 1]} intensity={0.5} color="#ffffff" />
         
-        <DnaModel 
+        <Model 
           ref={meshRef}
-          position={position as [number, number, number]}
-          scale={scale as [number, number, number]}
-          rotation={rotation as [number, number, number]}
+          position={position}
+          scale={scale}
+          rotation={rotation}
+          isAnimated={true}
+          onConnectionPointsUpdate={handleConnectionPointsUpdate}
         />
         
-        <TransformControls
-          object={meshRef.current || undefined}
-          mode={mode}
-          onObjectChange={handleObjectChange}
-        />
+        {/* Points 3D correspondant aux services - visibles seulement sur Services */}
+        {isServiceVisible && servicePoints.map((point, index) => (
+          <Sphere
+            key={index}
+            position={point.position}
+            args={[0.02, 8, 8]}
+          >
+            <meshStandardMaterial
+              color="#ffffff"
+              emissive="#ffffff"
+              emissiveIntensity={0.3}
+              metalness={0.8}
+              roughness={0.2}
+            />
+          </Sphere>
+        ))}
         
+        {/* Système de connexions 3D */}
+        <Connections3D
+          connectionPoints={connectionPoints}
+          servicePoints={servicePoints}
+          isVisible={isServiceVisible}
+        />
         
         
         <Environment preset="night" />
         <Stats />
-        <AsciiRenderer
-          fgColor="white"
-          bgColor="transparent"
-          characters=" .:-=+*#%@"
-          invert={false}
-          color={false}
-          resolution={0.15}
-        />
       </Canvas>
-      
-      {/* Contrôles et affichage des coordonnées */}
-      <div className="absolute top-4 right-4 z-20 bg-black/80 text-white p-4 rounded-lg font-mono text-sm pointer-events-auto">
-        <div className="mb-4">
-          <h3 className="text-lg font-bold mb-2">Contrôles</h3>
-          <div className="space-x-2">
-            <button 
-              onClick={() => setMode('translate')}
-              className={`px-3 py-1 rounded ${mode === 'translate' ? 'bg-white text-black' : 'bg-gray-600'}`}
-            >
-              Move
-            </button>
-            <button 
-              onClick={() => setMode('rotate')}
-              className={`px-3 py-1 rounded ${mode === 'rotate' ? 'bg-white text-black' : 'bg-gray-600'}`}
-            >
-              Rotate
-            </button>
-            <button 
-              onClick={() => setMode('scale')}
-              className={`px-3 py-1 rounded ${mode === 'scale' ? 'bg-white text-black' : 'bg-gray-600'}`}
-            >
-              Scale
-            </button>
-          </div>
-        </div>
-        
-        <div className="space-y-2">
-          <div>
-            <strong>Position:</strong>
-            <div>X: {position[0].toFixed(3)}</div>
-            <div>Y: {position[1].toFixed(3)}</div>
-            <div>Z: {position[2].toFixed(3)}</div>
-          </div>
-          
-          <div>
-            <strong>Rotation:</strong>
-            <div>X: {(rotation[0] * 180 / Math.PI).toFixed(1)}°</div>
-            <div>Y: {(rotation[1] * 180 / Math.PI).toFixed(1)}°</div>
-            <div>Z: {(rotation[2] * 180 / Math.PI).toFixed(1)}°</div>
-          </div>
-          
-          <div>
-            <strong>Scale:</strong>
-            <div>X: {scale[0].toFixed(3)}</div>
-            <div>Y: {scale[1].toFixed(3)}</div>
-            <div>Z: {scale[2].toFixed(3)}</div>
-          </div>
-        </div>
-      </div>
       
       {/* Video de noise par-dessus le Canvas */}
       <video
@@ -136,6 +97,7 @@ export default function Background() {
       >
         <source src="/noise.mp4" type="video/mp4" />
       </video>
+      
     </div>
   );
 }

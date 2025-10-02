@@ -2,10 +2,24 @@
 
 import Image from "next/image";
 
-export default function Header() {
+interface HeaderProps {
+  onServicesClick: () => void;
+  onCollectifClick: () => void;
+  onProjetsClick: () => void;
+  onContactClick: () => void;
+  isServiceVisible: boolean;
+}
+
+export default function Header({ 
+  onServicesClick, 
+  onCollectifClick, 
+  onProjetsClick, 
+  onContactClick,
+  isServiceVisible 
+}: HeaderProps) {
   return (
     <header className="fixed top-0 left-0 z-20 p-8">
-      <div className="flex items-start space-x-50">
+      <div className="flex items-start space-x-60">
         {/* Logo */}
         <div className="flex items-center">
           <Image
@@ -20,34 +34,38 @@ export default function Header() {
 
         {/* Navigation Menu */}
         <nav className="flex flex-col space-y-6">
-          <a 
-            href="#collectif" 
-            className="text-white text-lg  uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
+          <button 
+            onClick={onCollectifClick}
+            className="text-white text-lg uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             COLLECTIF
-          </a>
-          <a 
-            href="#services" 
-            className="text-white text-lg  uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
+          </button>
+          <button 
+            onClick={onServicesClick}
+            className={`text-lg uppercase tracking-wider transition-colors duration-200 ${
+              isServiceVisible 
+                ? 'text-gray-300' 
+                : 'text-white hover:text-gray-300'
+            }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             SERVICES
-          </a>
-          <a 
-            href="#projets" 
-            className="text-white text-lg  uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
+          </button>
+          <button 
+            onClick={onProjetsClick}
+            className="text-white text-lg uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             PROJETS
-          </a>
-          <a 
-            href="#contact" 
-            className="text-white text-lg  uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
+          </button>
+          <button 
+            onClick={onContactClick}
+            className="text-white text-lg uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             CONTACT
-          </a>
+          </button>
         </nav>
       </div>
     </header>
