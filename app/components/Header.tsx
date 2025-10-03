@@ -8,6 +8,9 @@ interface HeaderProps {
   onProjetsClick: () => void;
   onContactClick: () => void;
   isServiceVisible: boolean;
+  isCollectifVisible: boolean;
+  isProjetsVisible: boolean;
+  isContactVisible: boolean;
 }
 
 export default function Header({ 
@@ -15,10 +18,13 @@ export default function Header({
   onCollectifClick, 
   onProjetsClick, 
   onContactClick,
-  isServiceVisible 
+  isServiceVisible,
+  isCollectifVisible,
+  isProjetsVisible,
+  isContactVisible
 }: HeaderProps) {
   return (
-    <header className="fixed top-0 left-0 z-20 p-8">
+    <header className="fixed top-0 left-0 z-40 p-8">
       <div className="flex items-start space-x-60">
         {/* Logo */}
         <div className="flex items-center">
@@ -36,14 +42,21 @@ export default function Header({
         <nav className="flex flex-col space-y-6">
           <button 
             onClick={onCollectifClick}
-            className="text-white text-lg uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative ${
+              isCollectifVisible 
+                ? 'text-gray-300' 
+                : 'text-white hover:text-gray-300'
+            }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             COLLECTIF
+            {isCollectifVisible && (
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
+            )}
           </button>
           <button 
             onClick={onServicesClick}
-            className={`text-lg uppercase tracking-wider transition-colors duration-200 ${
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative ${
               isServiceVisible 
                 ? 'text-gray-300' 
                 : 'text-white hover:text-gray-300'
@@ -51,20 +64,37 @@ export default function Header({
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             SERVICES
+            {isServiceVisible && (
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
+            )}
           </button>
           <button 
             onClick={onProjetsClick}
-            className="text-white text-lg uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative ${
+              isProjetsVisible 
+                ? 'text-gray-300' 
+                : 'text-white hover:text-gray-300'
+            }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             PROJETS
+            {isProjetsVisible && (
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
+            )}
           </button>
           <button 
             onClick={onContactClick}
-            className="text-white text-lg uppercase tracking-wider hover:text-gray-300 transition-colors duration-200"
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative ${
+              isContactVisible 
+                ? 'text-gray-300' 
+                : 'text-white hover:text-gray-300'
+            }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             CONTACT
+            {isContactVisible && (
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
+            )}
           </button>
         </nav>
       </div>

@@ -1,0 +1,4 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#E2E24A"/>
+  <text x="100" y="100" text-anchor="middle" dy=".3em" fill="white" font-family="Arial" font-size="16">Sunglasses</text>
+</svg>

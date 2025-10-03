@@ -28,6 +28,17 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        
+        {/* Video de noise globale */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="fixed inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-50"
+        >
+          <source src="/noise.mp4" type="video/mp4" />
+        </video>
       </body>
     </html>
   );

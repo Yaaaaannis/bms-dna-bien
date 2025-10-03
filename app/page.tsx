@@ -5,10 +5,14 @@ import Loader from "./components/Loader";
 import Background from "./components/Background";
 import Header from "./components/Header";
 import Service from "./components/Service";
+import Collectif from "./components/Collectif";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isServiceVisible, setIsServiceVisible] = useState(false);
+  const [isCollectifVisible, setIsCollectifVisible] = useState(false);
+  const [isProjetsVisible, setIsProjetsVisible] = useState(false);
+  const [isContactVisible, setIsContactVisible] = useState(false);
   
   // Points 3D fixes (sans contrôles)
   const servicePoints = [
@@ -39,28 +43,44 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+
   if (isLoading) {
     return <Loader onComplete={() => setIsLoading(false)} />;
   }
 
   const handleServicesClick = () => {
     setIsServiceVisible(!isServiceVisible);
+    // Désactiver les autres sections quand on clique sur Services
+    setIsCollectifVisible(false);
+    setIsProjetsVisible(false);
+    setIsContactVisible(false);
   };
 
 
   const handleCollectifClick = () => {
-    // Ici vous pouvez ajouter la logique pour afficher le contenu Collectif
-    // L'animation du modèle continue de tourner
+    setIsCollectifVisible(!isCollectifVisible);
+    // Désactiver les autres sections quand on clique sur Collectif
+    setIsServiceVisible(false);
+    setIsProjetsVisible(false);
+    setIsContactVisible(false);
   };
 
   const handleProjetsClick = () => {
+    setIsProjetsVisible(!isProjetsVisible);
+    // Désactiver les autres sections quand on clique sur Projets
+    setIsServiceVisible(false);
+    setIsCollectifVisible(false);
+    setIsContactVisible(false);
     // Ici vous pouvez ajouter la logique pour afficher le contenu Projets
-    // L'animation du modèle continue de tourner
   };
 
   const handleContactClick = () => {
+    setIsContactVisible(!isContactVisible);
+    // Désactiver les autres sections quand on clique sur Contact
+    setIsServiceVisible(false);
+    setIsCollectifVisible(false);
+    setIsProjetsVisible(false);
     // Ici vous pouvez ajouter la logique pour afficher le contenu Contact
-    // L'animation du modèle continue de tourner
   };
 
         return (
@@ -69,6 +89,7 @@ export default function Home() {
                     <Background 
                       servicePoints={servicePoints} 
                       isServiceVisible={isServiceVisible}
+                      isCollectifVisible={isCollectifVisible}
                     />
                     
                     {/* Header avec logo et navigation */}
@@ -78,12 +99,21 @@ export default function Home() {
                       onProjetsClick={handleProjetsClick}
                       onContactClick={handleContactClick}
                       isServiceVisible={isServiceVisible}
+                      isCollectifVisible={isCollectifVisible}
+                      isProjetsVisible={isProjetsVisible}
+                      isContactVisible={isContactVisible}
                     />
 
                     {/* Service au clic */}
                     {isServiceVisible && (
                       <Service isVisible={isServiceVisible} />
                     )}
+
+                    {/* Collectif au clic */}
+                    {isCollectifVisible && (
+                      <Collectif isVisible={isCollectifVisible} />
+                    )}
+
 
                   </div>
         );
