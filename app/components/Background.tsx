@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from "@react-three/fiber";
-import { Environment, Stats, Sphere } from "@react-three/drei";
+import { Environment, Sphere } from "@react-three/drei";
 import { Model } from "./Model";
 import Connections3D from "./Connections3D";
 import { useRef, useState, useCallback, useEffect } from "react";
@@ -18,6 +18,7 @@ interface BackgroundProps {
 export default function Background({ servicePoints, isServiceVisible, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
   const meshRef = useRef<Group>(null);
   const [connectionPoints, setConnectionPoints] = useState<Vector3[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
   
   // Objets de données animables par GSAP
   const modelDataRef = useRef({
@@ -35,10 +36,15 @@ export default function Background({ servicePoints, isServiceVisible, isCollecti
   }, []);
   
   // Fonction d'animation GSAP pour les transitions fluides
-  const animateModelTransition = useCallback((isCollectif: boolean) => {
+  const animateModelTransition = useCallback((isCollectif: boolean, mobile: boolean) => {
+    // Légers offsets sur mobile pour pousser le modèle plus à gauche
+    const mobileOffsetX = mobile ? -2.0 : 0.0;
+    const mobileOffsetY = mobile ? -2.0 : 0.0;
+    const mobileOffsetZ = mobile ? 2.0 : 0.0;
+
     const targetPosition = isCollectif 
-      ? { x: -12.134, y: -7.069, z: 9.093 }  // Position pour Collectif
-      : { x: 4.240, y: -1.055, z: 2.439 };  // Position par défaut
+      ? { x: -12.134 + mobileOffsetX, y: -7.069 + mobileOffsetY, z: 9.093 + mobileOffsetZ }
+      : { x: 4.240 + mobileOffsetX, y: -1.055 + mobileOffsetY, z: 2.439 + mobileOffsetZ };
     
     const targetRotation = isCollectif
       ? { x: 2.671, y: -0.353, z: -1.861 }  // Rotation pour Collectif
@@ -80,16 +86,24 @@ export default function Background({ servicePoints, isServiceVisible, isCollecti
     }, 0); // Commence en même temps que la position
   }, []);
 
+  // Détecter le mobile et mettre à jour à la volée
+  useEffect(() => {
+    const update = () => setIsMobile(typeof window !== 'undefined' && window.innerWidth < 640);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
   // Effet pour déclencher l'animation quand isCollectifVisible change
   useEffect(() => {
     if (isCollectifVisible) {
       // Animation vers Collectif
-      animateModelTransition(true);
+      animateModelTransition(true, isMobile);
     } else {
       // Animation de retour à la position par défaut
-      animateModelTransition(false);
+      animateModelTransition(false, isMobile);
     }
-  }, [isCollectifVisible, animateModelTransition]);
+  }, [isCollectifVisible, isMobile, animateModelTransition]);
 
 
   return (
@@ -151,7 +165,6 @@ export default function Background({ servicePoints, isServiceVisible, isCollecti
         
         
         <Environment preset="night" />
-        <Stats />
       </Canvas>
       
       

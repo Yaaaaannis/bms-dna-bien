@@ -34,3 +34,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Waitlist + Sanity
+
+- Page: `/waitlist` (background active, loader overlay)
+- API: `/api/waitlist` stores emails to Sanity
+
+Environment variables required:
+
+```
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=your_sanity_token_with_write
+```
+
+The token needs write permissions on the dataset. With envs set, POSTing to `/api/waitlist` will create `waitlistEntry` documents in Sanity.

@@ -14,6 +14,8 @@ export default function Home() {
   const [isCollectifVisible, setIsCollectifVisible] = useState(false);
   const [isProjetsVisible, setIsProjetsVisible] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<"idle"|"loading"|"success"|"error">("idle");
   
   // Points 3D fixes (sans contrôles)
   const servicePoints = [
@@ -45,9 +47,7 @@ export default function Home() {
   }, []);
 
 
-  if (isLoading) {
-    return <Loader onComplete={() => setIsLoading(false)} />;
-  }
+  // Afficher le loader en surcouche mais charger le background en dessous
 
   const handleServicesClick = () => {
     setIsServiceVisible(!isServiceVisible);
@@ -84,6 +84,27 @@ export default function Home() {
     // Ici vous pouvez ajouter la logique pour afficher le contenu Contact
   };
 
+  const submitEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      setSubmitStatus("error");
+      return;
+    }
+    setSubmitStatus("loading");
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      if (!res.ok) throw new Error("bad");
+      setSubmitStatus("success");
+      setEmail("");
+    } catch {
+      setSubmitStatus("error");
+    }
+  };
+
         return (
                   <div className="relative min-h-screen">
                     {/* Scène 3D en arrière-plan */}
@@ -93,6 +114,11 @@ export default function Home() {
                       isCollectifVisible={isCollectifVisible}
                       isProjetsVisible={isProjetsVisible}
                     />
+                    {isLoading && (
+                      <div className="fixed inset-0 z-50">
+                        <Loader onComplete={() => setIsLoading(false)} />
+                      </div>
+                    )}
                     
                     {/* Header avec logo et navigation */}
                     <Header 
