@@ -1,6 +1,6 @@
 'use client';
 
-import Image from "next/image";
+import ShaderImage from "./ShaderImage";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
@@ -77,14 +77,16 @@ export default function Collectif({ isVisible }: CollectifProps) {
             <div className="relative w-full h-full">
               {/* Photo */}
               <div ref={el => { imagesRef.current[0] = el; }}>
-                <Image
-                  src="/images/flame.jpg"
-                  alt="Flame"
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-cover "
-                  style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
-                />
+                <a href="https://x.com/Imaginary_Flame" target="_blank" rel="noopener noreferrer">
+                  <ShaderImage
+                    src="/images/flame.jpg"
+                    alt="Flame"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-cover "
+                    style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
+                  />
+                </a>
               </div>
               {/* Carré blanc en bas à droite */}
               <div ref={el => { squaresRef.current[0] = el; }} className="absolute bottom-[-12px] right-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
@@ -107,14 +109,16 @@ export default function Collectif({ isVisible }: CollectifProps) {
             <div className="relative w-full h-full">
               {/* Photo */}
               <div ref={el => { imagesRef.current[1] = el; }}>
-                <Image
-                  src="/images/idamah.jpg"
-                  alt="Idamah"
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-cover "
-                  style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
-                />
+                <a href="https://x.com/idamah_" target="_blank" rel="noopener noreferrer">
+                  <ShaderImage
+                    src="/images/idamah.jpg"
+                    alt="Idamah"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-cover "
+                    style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
+                  />
+                </a>
               </div>
               {/* Carré blanc en haut à gauche */}
               <div ref={el => { squaresRef.current[1] = el; }} className="absolute top-[-12px] left-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
@@ -137,14 +141,16 @@ export default function Collectif({ isVisible }: CollectifProps) {
             <div className="relative w-full h-full">
               {/* Photo */}
               <div ref={el => { imagesRef.current[2] = el; }}>
-                <Image
-                  src="/images/jojo.jpg"
-                  alt="Jojo"
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-cover "
-                  style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
-                />
+                <a href="https://x.com/Jojolepaga" target="_blank" rel="noopener noreferrer">
+                  <ShaderImage
+                    src="/images/jojo.jpg"
+                    alt="Jojo"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-cover "
+                    style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
+                  />
+                </a>
               </div>
               {/* Carré blanc en bas à gauche */}
               <div ref={el => { squaresRef.current[2] = el; }} className="absolute bottom-[-12px] left-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
@@ -167,14 +173,16 @@ export default function Collectif({ isVisible }: CollectifProps) {
             <div className="relative w-full h-full">
               {/* Photo */}
               <div ref={el => { imagesRef.current[3] = el; }}>
-                <Image
-                  src="/images/yannis.jpg"
-                  alt="Super"
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-cover "
-                  style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
-                />
+                <a href="https://x.com/Yannis_dev" target="_blank" rel="noopener noreferrer">
+                  <ShaderImage
+                    src="/images/yannis.jpg"
+                    alt="Super"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-cover "
+                    style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
+                  />
+                </a>
               </div>
               {/* Carré blanc en bas à droite */}
               <div ref={el => { squaresRef.current[3] = el; }} className="absolute bottom-[-12px] right-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
@@ -197,14 +205,16 @@ export default function Collectif({ isVisible }: CollectifProps) {
             <div className="relative w-full h-full">
               {/* Photo */}
               <div ref={el => { imagesRef.current[4] = el; }}>
-                <Image
-                  src="/images/yacine.jpg"
-                  alt="Yacine"
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-cover "
-                  style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
-                />
+                <a href="https://x.com/yacinetha" target="_blank" rel="noopener noreferrer">
+                  <ShaderImage
+                    src="/images/yacine.jpg"
+                    alt="Yacine"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-cover "
+                    style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
+                  />
+                </a>
               </div>
               {/* Carré blanc en haut à droite */}
               <div ref={el => { squaresRef.current[4] = el; }} className="absolute bottom-[-12px] left-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
