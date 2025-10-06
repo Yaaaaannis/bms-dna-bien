@@ -89,7 +89,7 @@ export default function Collectif({ isVisible }: CollectifProps) {
                 </a>
               </div>
               {/* Carré blanc en bas à droite */}
-              <div ref={el => { squaresRef.current[0] = el; }} className="absolute bottom-[-12px] right-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
+              <div ref={el => { squaresRef.current[0] = el; }} className="absolute bottom-[12px] right-[12px] w-14 h-14 border-2 border-white opacity-80"></div>
               {/* Ligne pointillée vers le bas */}
               <div ref={el => { linesRef.current[0] = el; }} className="absolute w-px bg-white" 
                    style={{ 
@@ -98,8 +98,8 @@ export default function Collectif({ isVisible }: CollectifProps) {
                      opacity: 0.6,
                      rotate: '-22deg',
                      transformOrigin: '0 0',
-                     left: '161px',
-                     top: '160px'
+                     left: '150px',
+                     top: '150px'
                    }}></div>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function Collectif({ isVisible }: CollectifProps) {
                 </a>
               </div>
               {/* Carré blanc en bas à gauche */}
-              <div ref={el => { squaresRef.current[2] = el; }} className="absolute bottom-[-12px] left-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
+              <div ref={el => { squaresRef.current[2] = el; }} className="absolute bottom-[12px] left-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
               {/* Ligne pointillée vers le bas */}
               <div ref={el => { linesRef.current[2] = el; }} className="absolute w-px bg-white" 
                    style={{ 
@@ -162,8 +162,8 @@ export default function Collectif({ isVisible }: CollectifProps) {
                      opacity: 0.6,
                      rotate: '-22deg',
                      transformOrigin: '0 0',
-                     left: '0px',
-                     top: '160px'
+                     left: '-10px',
+                     top: '150px'
                    }}></div>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function Collectif({ isVisible }: CollectifProps) {
                 </a>
               </div>
               {/* Carré blanc en bas à droite */}
-              <div ref={el => { squaresRef.current[3] = el; }} className="absolute bottom-[-12px] right-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
+              <div ref={el => { squaresRef.current[3] = el; }} className="absolute bottom-[12px] right-[12px] w-14 h-14 border-2 border-white opacity-80"></div>
               {/* Ligne pointillée vers le bas */}
               <div ref={el => { linesRef.current[3] = el; }} className="absolute w-px bg-white" 
                    style={{ 
@@ -194,8 +194,8 @@ export default function Collectif({ isVisible }: CollectifProps) {
                      opacity: 0.6,
                      rotate: '47deg',
                      transformOrigin: '0 0',
-                     left: '158px',
-                     top: '160px'
+                     left: '150px',
+                     top: '150px'
                    }}></div>
             </div>
           </div>
@@ -217,7 +217,7 @@ export default function Collectif({ isVisible }: CollectifProps) {
                 </a>
               </div>
               {/* Carré blanc en haut à droite */}
-              <div ref={el => { squaresRef.current[4] = el; }} className="absolute bottom-[-12px] left-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
+              <div ref={el => { squaresRef.current[4] = el; }} className="absolute bottom-[12px] left-[-12px] w-14 h-14 border-2 border-white opacity-80"></div>
               {/* Ligne pointillée vers le bas */}
               <div ref={el => { linesRef.current[4] = el; }} className="absolute w-px bg-white" 
                    style={{ 
@@ -226,8 +226,8 @@ export default function Collectif({ isVisible }: CollectifProps) {
                      opacity: 0.6,
                      rotate: '19deg',
                      transformOrigin: '0 0',
-                     left: '2px',
-                     top: '160px'
+                     left: '-10px',
+                     top: '150px'
                    }}></div>
             </div>
           </div>

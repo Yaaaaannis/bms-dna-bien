@@ -35,7 +35,7 @@ export default function RootLayout({
           loop
           muted
           playsInline
-          className="fixed inset-0 w-full h-full object-cover opacity-20 pointer-events-none z-50"
+          className="fixed inset-0 w-full h-full object-cover opacity-15 pointer-events-none z-50"
         >
           <source src="/noise.mp4" type="video/mp4" />
         </video>
