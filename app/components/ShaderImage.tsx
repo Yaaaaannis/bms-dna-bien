@@ -8,8 +8,8 @@ import { CSSProperties, useMemo, useRef, useState } from 'react';
 interface ShaderImageProps {
   src: string;
   alt?: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   className?: string;
   style?: CSSProperties;
   lineFrequency?: number; // number of horizontal lines per image height
@@ -133,10 +133,17 @@ function DistortedPlane({
 }
 
 export default function ShaderImage({ src, width, height, className, style, lineFrequency, amplitude, decay, speed }: ShaderImageProps) {
+  const containerStyle: CSSProperties = {
+    ...(typeof width === 'number' ? { width } : {}),
+    ...(typeof height === 'number' ? { height } : {}),
+    overflow: 'hidden',
+    borderRadius: 0,
+    ...style,
+  };
   return (
     <div
       className={className}
-      style={{ width, height, overflow: 'hidden', borderRadius: 0, ...style }}
+      style={containerStyle}
     >
       <Canvas
         orthographic

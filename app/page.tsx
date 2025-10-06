@@ -6,6 +6,7 @@ import Background from "./components/Background";
 import Header from "./components/Header";
 import Service from "./components/Service";
 import Collectif from "./components/Collectif";
+import Projet from "./components/Projet";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -90,6 +91,7 @@ export default function Home() {
                       servicePoints={servicePoints} 
                       isServiceVisible={isServiceVisible}
                       isCollectifVisible={isCollectifVisible}
+                      isProjetsVisible={isProjetsVisible}
                     />
                     
                     {/* Header avec logo et navigation */}
@@ -112,6 +114,11 @@ export default function Home() {
                     {/* Collectif au clic */}
                     {isCollectifVisible && (
                       <Collectif isVisible={isCollectifVisible} />
+                    )}
+
+                    {/* Projets au clic */}
+                    {isProjetsVisible && (
+                      <Projet isVisible={isProjetsVisible} />
                     )}
 
 

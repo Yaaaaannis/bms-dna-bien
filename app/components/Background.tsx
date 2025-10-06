@@ -12,9 +12,10 @@ interface BackgroundProps {
   servicePoints: Array<{ position: [number, number, number]; name: string }>;
   isServiceVisible: boolean;
   isCollectifVisible: boolean;
+  isProjetsVisible: boolean;
 }
 
-export default function Background({ servicePoints, isServiceVisible, isCollectifVisible }: BackgroundProps) {
+export default function Background({ servicePoints, isServiceVisible, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
   const meshRef = useRef<Group>(null);
   const [connectionPoints, setConnectionPoints] = useState<Vector3[]>([]);
   
@@ -145,7 +146,7 @@ export default function Background({ servicePoints, isServiceVisible, isCollecti
         <Connections3D
           connectionPoints={connectionPoints}
           servicePoints={servicePoints}
-          isVisible={isServiceVisible}
+          isVisible={isServiceVisible || isProjetsVisible}
         />
         
         
