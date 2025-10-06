@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@sanity/cli": "^4.10.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

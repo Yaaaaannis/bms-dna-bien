@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: "OXY5ryntHRU5V1ak9EFWI2xtPQrUqsAlynYyv6B-f4s",
+  },
   title: {
     default: "BMS DNA",
     template: "%s | BMS DNA",
@@ -51,6 +54,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="OXY5ryntHRU5V1ak9EFWI2xtPQrUqsAlynYyv6B-f4s" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
