@@ -139,7 +139,10 @@ export default function Home() {
 
                     {/* Collectif au clic */}
                     {isCollectifVisible && (
-                      <Collectif isVisible={isCollectifVisible} />
+                      <Collectif 
+                        isVisible={isCollectifVisible} 
+                        onReturn={() => setIsCollectifVisible(false)}
+                      />
                     )}
 
                     {/* Projets au clic */}

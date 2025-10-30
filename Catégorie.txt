@@ -1,0 +1,47 @@
+
+## 📊 Résultats de l'analyse
+
+**Nombre total de réponses :** 79
+
+### Top 10 des catégories les plus mentionnées :
+
+1. **Musique/Production** : 33 mentions
+   - (beatmaker, rap, DJ, ingé son, sound design, etc.)
+
+2. **Vidéo/Réalisation** : 19 mentions
+   - (montage, réalisation, cinéma, audiovisuel, etc.)
+
+3. **Graphisme/Design** : 19 mentions
+   - (graphisme, logo, branding, affiches, miniatures, etc.)
+
+4. **Dessin/Illustration** : 14 mentions
+   - (dessin, illustration, art)
+
+5. **Photographie** : 13 mentions
+
+6. **UI/UX/Web Design** : 11 mentions
+   - (webdesign, UI/UX, design d'interface)
+
+7. **Community Management/Communication** : 8 mentions
+   - (création de contenu, réseaux sociaux, communication)
+
+8. **IA/Data Science** : 8 mentions
+   - (IA, deep learning, data, Google Sheets)
+
+9. **Développement Web/Mobile** : 7 mentions
+
+10. **Écriture/Rédaction** : 7 mentions
+    - (articles, scénarios, fiction, docu)
+
+### Autres catégories :
+- Streaming/Animation : 5 mentions
+- Motion Design : 2 mentions
+- 3D/Modélisation : 2 mentions
+- Organisation/Événementiel : 2 mentions
+- Développement Jeux Vidéo : 1 mention
+- Doublage : 1 mention
+- Langues/Social : 1 mention
+- Reportage/Journalisme : 1 mention
+
+**Total : 18 catégories identifiées | 154 mentions au total**
+

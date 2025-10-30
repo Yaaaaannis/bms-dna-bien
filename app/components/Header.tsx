@@ -24,7 +24,7 @@ export default function Header({
   isContactVisible
 }: HeaderProps) {
   return (
-    <header className="fixed top-0 left-0 z-40 p-8">
+    <header className={`fixed top-0 left-0 z-40 p-8 transition-opacity duration-300 ${isCollectifVisible ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
       <div className="flex items-start space-x-60">
         {/* Logo */}
         <div className="flex items-center">

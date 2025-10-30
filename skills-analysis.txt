@@ -1,0 +1,332 @@
+=== ANALYSE DÉTAILLÉE DES COMPÉTENCES CRÉATIVES ===
+
+Nombre total de réponses analysées: 79
+
+=== CATÉGORIES PAR NOMBRE DE MENTIONS ===
+
+Musique/Production: 33 mentions
+Vidéo/Réalisation: 19 mentions
+Graphisme/Design: 19 mentions
+Dessin/Illustration: 14 mentions
+Photographie: 13 mentions
+UI/UX/Web Design: 11 mentions
+Community Management/Communication: 8 mentions
+IA/Data Science: 8 mentions
+Développement Web/Mobile: 7 mentions
+Écriture/Rédaction: 7 mentions
+Streaming/Animation: 5 mentions
+Motion Design: 2 mentions
+3D/Modélisation: 2 mentions
+Organisation/Événementiel: 2 mentions
+Développement Jeux Vidéo: 1 mentions
+Doublage: 1 mentions
+Langues/Social: 1 mentions
+Reportage/Journalisme: 1 mentions
+
+=== TOTAL ===
+Catégories identifiées: 18
+Total de mentions: 154
+
+
+=== DÉTAIL PAR RÉPONSE ===
+
+Ligne 1:
+  Texte: Vidéo si je peux dire
+  Catégories: Vidéo/Réalisation, UI/UX/Web Design
+
+Ligne 2:
+  Texte: La musique je fais des prods
+  Catégories: Musique/Production
+
+Ligne 3:
+  Texte: Photographie
+  Catégories: Photographie, Musique/Production
+
+Ligne 4:
+  Texte: Design (web, app, print)
+  Catégories: Graphisme/Design
+
+Ligne 5:
+  Texte: Rédaction d'articles
+  Catégories: Écriture/Rédaction, Dessin/Illustration
+
+Ligne 6:
+  Texte: "Les Google Sheets, les datas j'adore ça et je veux en faire mon métier, donc si des personnes ont d...
+  Catégories: UI/UX/Web Design, Musique/Production, IA/Data Science
+
+Ligne 7:
+  Texte: Pas vraiment de la créativités mais je suis BMS depuis le 1er tweet héhé"
+  Catégories: UI/UX/Web Design
+
+Ligne 8:
+  Texte: Design graphique - Mixed Media/Collage
+  Catégories: Graphisme/Design, Musique/Production, IA/Data Science
+
+Ligne 9:
+  Texte: Création de contenu sur les réseaux sociaux et communication 
+  Catégories: UI/UX/Web Design, Community Management/Communication, IA/Data Science
+
+Ligne 10:
+  Texte: Community Management, Graphisme, Affiche, Montage, Dessin, Communication
+  Catégories: Graphisme/Design, Musique/Production, Community Management/Communication, Dessin/Illustration
+
+Ligne 11:
+  Texte: création de contenu
+  Catégories: Community Management/Communication
+
+Ligne 12:
+  Texte: Rappeur
+  Catégories: Musique/Production
+
+Ligne 13:
+  Texte: Photographie
+  Catégories: Photographie, Musique/Production
+
+Ligne 14:
+  Texte: Écriture (fiction audio, nouvelles, scénarios, articles, docu), Montage, (DaVinci Resolve, Adobe Pre...
+  Catégories: Vidéo/Réalisation, Photographie, Graphisme/Design, Musique/Production, Écriture/Rédaction, Dessin/Illustration
+
+Ligne 15:
+  Texte: Développement web et mobile
+  Catégories: Développement Web/Mobile
+
+Ligne 16:
+  Texte: Graphisme : Typographie, Logo, Branding
+  Catégories: Graphisme/Design, Musique/Production
+
+Ligne 17:
+  Texte: Photo-Vidéo 
+  Catégories: Vidéo/Réalisation, Photographie
+
+Ligne 18:
+  Texte: "Réalisation, écriture et direction artistique
+  Catégories: Vidéo/Réalisation, Écriture/Rédaction, Dessin/Illustration
+
+Ligne 19:
+  Texte: Je souhaiterai me spécialiser globalement dans la réalisation et la narration de divers projets, aut...
+  Catégories: Vidéo/Réalisation, Écriture/Rédaction, IA/Data Science
+
+Ligne 20:
+  Texte: Concrètement j'aime être les yeux d'un projet, passer de l'idée à l'image (ou les deux)! "
+  Catégories: UI/UX/Web Design
+
+Ligne 21:
+  Texte: La communication
+  Catégories: Community Management/Communication
+
+Ligne 22:
+  Texte: Community manager 
+  Catégories: Community Management/Communication
+
+Ligne 23:
+  Texte: Motion Design 2D-3D
+  Catégories: Graphisme/Design, Motion Design, 3D/Modélisation
+
+Ligne 24:
+  Texte: Art
+  Catégories: Dessin/Illustration
+
+Ligne 25:
+  Texte: Graphisme 
+  Catégories: Graphisme/Design, Musique/Production
+
+Ligne 26:
+  Texte: Développement informatique 
+  Catégories: Développement Web/Mobile
+
+Ligne 27:
+  Texte: La photographie, et la vidéo que j’aimerais développer ! 
+  Catégories: Vidéo/Réalisation, Photographie, Musique/Production
+
+Ligne 28:
+  Texte: Montage vidéo, réalisation vidéo !
+  Catégories: Vidéo/Réalisation
+
+Ligne 29:
+  Texte: Caster (LOL, RL, CS) et organisation d'évent lan et online
+  Catégories: Streaming/Animation, Organisation/Événementiel
+
+Ligne 30:
+  Texte: création de vidéo (montage, rédaction) / musique 
+  Catégories: Vidéo/Réalisation, Musique/Production, Écriture/Rédaction
+
+Ligne 31:
+  Texte: Photographie
+  Catégories: Photographie, Musique/Production
+
+Ligne 32:
+  Texte: Graphiste
+  Catégories: Graphisme/Design, Musique/Production
+
+Ligne 33:
+  Texte: Graphisme Direction Artistique 
+  Catégories: Vidéo/Réalisation, Graphisme/Design, Musique/Production, Dessin/Illustration
+
+Ligne 34:
+  Texte: Cast, Host, animation.
+  Catégories: Streaming/Animation
+
+Ligne 35:
+  Texte: Rédaction d'articles / Création de contenus
+  Catégories: Écriture/Rédaction, Community Management/Communication, Dessin/Illustration
+
+Ligne 36:
+  Texte: Vidéaste 
+  Catégories: Vidéo/Réalisation
+
+Ligne 37:
+  Texte: Graphiste débutant 
+  Catégories: Graphisme/Design, Musique/Production
+
+Ligne 38:
+  Texte: dessin, code
+  Catégories: Développement Web/Mobile, Dessin/Illustration
+
+Ligne 39:
+  Texte: Cinéma et Audiovisuel 
+  Catégories: Vidéo/Réalisation
+
+Ligne 40:
+  Texte: Réalisation vidéo
+  Catégories: Vidéo/Réalisation
+
+Ligne 41:
+  Texte: Art
+  Catégories: Dessin/Illustration
+
+Ligne 42:
+  Texte: Montage vidéo mgl
+  Catégories: Vidéo/Réalisation
+
+Ligne 43:
+  Texte: "Réalisation fiction/pub/live
+  Catégories: Vidéo/Réalisation
+
+Ligne 44:
+  Texte: Direction de la photographie
+  Catégories: Photographie, Musique/Production
+
+Ligne 46:
+  Texte: Développement web, tu trouveras pas meilleur
+  Catégories: Développement Web/Mobile
+
+Ligne 47:
+  Texte: Le dessin 
+  Catégories: Dessin/Illustration
+
+Ligne 48:
+  Texte: IA, Deep Learning
+  Catégories: IA/Data Science
+
+Ligne 49:
+  Texte: Montage, programmation
+  Catégories: Développement Web/Mobile
+
+Ligne 50:
+  Texte: Rap, stream, divertissement, blague et scénarisation
+  Catégories: Musique/Production, Écriture/Rédaction, Streaming/Animation
+
+Ligne 51:
+  Texte: Création de contenu, reportage, format musicale ou journalistique et également le montage vidéo
+  Catégories: Vidéo/Réalisation, Community Management/Communication, Reportage/Journalisme
+
+Ligne 52:
+  Texte: Développement informatique 
+  Catégories: Développement Web/Mobile
+
+Ligne 53:
+  Texte: Graphisme photoshop, retouche photo lightroom et un peu de montage video
+  Catégories: Photographie, Graphisme/Design, Musique/Production
+
+Ligne 54:
+  Texte: "Mon domaine de créativité es tmajoritairement basé sur le graphisme, spécialisé dans les affiches s...
+  Catégories: Photographie, Graphisme/Design, UI/UX/Web Design, Musique/Production, IA/Data Science
+
+Ligne 55:
+  Texte: J'ai bientôt 2 ans d'activité dans ce domaine et la plupart des retours que j'ai pu avoir ont été po...
+  Catégories: Dessin/Illustration
+
+Ligne 56:
+  Texte: Graphisme 
+  Catégories: Graphisme/Design, Musique/Production
+
+Ligne 57:
+  Texte: "- Photographie 
+  Catégories: Photographie, Musique/Production
+
+Ligne 58:
+  Texte: - Design"
+  Catégories: Graphisme/Design
+
+Ligne 59:
+  Texte: Pas nécessairement créatif mais mes domaines sont les langues, j'ai une très bonne accroche sociale ...
+  Catégories: UI/UX/Web Design, Musique/Production, IA/Data Science, Organisation/Événementiel, Langues/Social
+
+Ligne 60:
+  Texte: Ecriture, vidéos youtube, doublage 
+  Catégories: Vidéo/Réalisation, Doublage
+
+Ligne 61:
+  Texte: music , beatmaker , inge son , rap 
+  Catégories: Musique/Production
+
+Ligne 62:
+  Texte: 3D/Dessin/Webdesign
+  Catégories: Graphisme/Design, UI/UX/Web Design, Motion Design, 3D/Modélisation, Dessin/Illustration
+
+Ligne 63:
+  Texte: UI/UX 
+  Catégories: UI/UX/Web Design
+
+Ligne 64:
+  Texte: Photographie 
+  Catégories: Photographie, Musique/Production
+
+Ligne 65:
+  Texte: Createur de contenu
+  Catégories: Community Management/Communication
+
+Ligne 66:
+  Texte: Illustration / Graphisme
+  Catégories: Graphisme/Design, Musique/Production, Dessin/Illustration
+
+Ligne 67:
+  Texte: Photographie, streaming
+  Catégories: Photographie, Musique/Production, Streaming/Animation
+
+Ligne 68:
+  Texte: Musique (DJ/beatmaker) 
+  Catégories: Musique/Production
+
+Ligne 71:
+  Texte: Programmation Jeux Vidéo et Programmation C++
+  Catégories: Vidéo/Réalisation, UI/UX/Web Design, Développement Web/Mobile, Développement Jeux Vidéo
+
+Ligne 72:
+  Texte: Musique, dessin
+  Catégories: Musique/Production, Dessin/Illustration
+
+Ligne 73:
+  Texte: Monteur truquiste / Développeur WEB
+  Catégories: Vidéo/Réalisation, UI/UX/Web Design
+
+Ligne 74:
+  Texte: Graphic Design, création d’affiche de poster de minia etc
+  Catégories: Graphisme/Design, Musique/Production, IA/Data Science
+
+Ligne 75:
+  Texte: Montage / Mixage son / Prise de son 
+  Catégories: Musique/Production
+
+Ligne 77:
+  Texte: Graphisme, Typo, logo, identité visuel, branding 
+  Catégories: Graphisme/Design, Musique/Production
+
+Ligne 78:
+  Texte: Streamer 
+  Catégories: Streaming/Animation
+
+Ligne 79:
+  Texte: Création audiovisuelle ( films , vidéos , photographie ) , graphic design
+  Catégories: Vidéo/Réalisation, Photographie, Graphisme/Design, Musique/Production
+
