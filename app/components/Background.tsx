@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from "@react-three/fiber";
-import { Environment, Sphere } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 import { Model } from "./Model";
 import Connections3D from "./Connections3D";
 import { useRef, useState, useCallback, useEffect } from "react";
@@ -139,28 +139,13 @@ export default function Background({ servicePoints, isServiceVisible, isCollecti
           onConnectionPointsUpdate={handleConnectionPointsUpdate}
         />
         
-        {/* Points 3D correspondant aux services - visibles seulement sur Services */}
-        {isServiceVisible && servicePoints.map((point, index) => (
-          <Sphere
-            key={index}
-            position={point.position}
-            args={[0.02, 8, 8]}
-          >
-            <meshStandardMaterial
-              color="#ffffff"
-              emissive="#ffffff"
-              emissiveIntensity={0.3}
-              metalness={0.8}
-              roughness={0.2}
-            />
-          </Sphere>
-        ))}
+        {/* Points 3D correspondant aux services - retirés */}
         
         {/* Système de connexions 3D */}
         <Connections3D
           connectionPoints={connectionPoints}
           servicePoints={servicePoints}
-          isVisible={isServiceVisible || isProjetsVisible}
+          isVisible={isProjetsVisible}
         />
         
         
