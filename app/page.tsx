@@ -109,7 +109,7 @@ export default function Home() {
     const index = allProjects.findIndex(p => p.id === selectedProject.id);
     console.log('Current project index:', index, 'Selected project:', selectedProject);
     return index;
-  }, [selectedProject]);
+  }, [selectedProject, allProjects]);
 
   const handlePreviousProject = () => {
     console.log('handlePreviousProject called', {
@@ -151,7 +151,7 @@ export default function Home() {
         selectedProject
       });
     }
-  }, [isProjetsVisible, selectedProject, currentProjectIndex]);
+  }, [isProjetsVisible, selectedProject, currentProjectIndex, allProjects.length]);
 
   const submitEmail = async (e: React.FormEvent) => {
     e.preventDefault();

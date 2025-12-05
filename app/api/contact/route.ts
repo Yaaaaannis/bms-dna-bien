@@ -36,11 +36,13 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error('[contact] error', e);
     
+    const error = e as { statusCode?: number; responseBody?: string };
+    
     // Gestion spécifique des erreurs de permissions Sanity
-    if (e?.statusCode === 403 || e?.responseBody?.includes('Insufficient permissions')) {
+    if (error?.statusCode === 403 || error?.responseBody?.includes('Insufficient permissions')) {
       return NextResponse.json({ 
         error: 'Erreur de permissions Sanity. Vérifiez que SANITY_API_TOKEN a les permissions d\'écriture.' 
       }, { status: 403 });

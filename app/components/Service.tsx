@@ -112,7 +112,7 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
     if (isVisible) {
       fetchProjects();
     }
-  }, [isVisible]);
+  }, [isVisible, onProjectsLoaded]);
 
   // Filtrer les projets selon le filtre sélectionné
   const filteredProjects = useMemo(() => {

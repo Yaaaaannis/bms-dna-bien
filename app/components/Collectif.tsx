@@ -11,7 +11,7 @@ interface CollectifProps {
   onReturn?: () => void;
 }
 
-export default function Collectif({ isVisible, onReturn }: CollectifProps) {
+export default function Collectif({ isVisible }: CollectifProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
   const titleRef = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ export default function Collectif({ isVisible, onReturn }: CollectifProps) {
               className="text-6xl font-bold text-white uppercase whitespace-nowrap ml-[-100px]"
               style={{ fontFamily: 'DrukWideBold, sans-serif' }}
             >
-              L'ÉQUIPE DNA
+              L&apos;ÉQUIPE DNA
             </h1>
           </div>
 

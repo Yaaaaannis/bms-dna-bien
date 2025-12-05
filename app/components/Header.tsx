@@ -22,7 +22,7 @@ export default function Header({
   isServiceVisible,
   isCollectifVisible,
   isPresentationVisible = false,
-  isProjetsVisible,
+  isProjetsVisible: _isProjetsVisible,
   isContactVisible
 }: HeaderProps) {
   return (

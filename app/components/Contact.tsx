@@ -8,7 +8,7 @@ interface ContactProps {
   onReturn?: () => void;
 }
 
-export default function Contact({ isVisible, onReturn }: ContactProps) {
+export default function Contact({ isVisible }: ContactProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -24,6 +24,8 @@ export default function Contact({ isVisible, onReturn }: ContactProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  // Supprimer l'avertissement de variable non utilisée en l'utilisant dans l'affichage
 
   useEffect(() => {
     if (!isVisible || !containerRef.current) return;
@@ -268,7 +270,7 @@ export default function Contact({ isVisible, onReturn }: ContactProps) {
               )}
               {submitStatus === 'error' && (
                 <p className="text-red-400 text-sm mt-2" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-                  Erreur lors de l'envoi. Veuillez réessayer.
+                  {errorMessage || 'Erreur lors de l&apos;envoi. Veuillez réessayer.'}
                 </p>
               )}
             </div>

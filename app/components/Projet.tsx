@@ -25,17 +25,15 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [displayedImage, setDisplayedImage] = useState<string>('');
 
-  if (!isVisible || !project) return null;
-
   // Utiliser uniquement les images de la galerie (pas la preview)
-  const allImages: string[] = project.galleryImages || [];
+  const allImages: string[] = project?.galleryImages || [];
 
   // Si pas d'images de galerie, utiliser la preview comme fallback
   const hasGalleryImages = allImages.length > 0;
-  const displayImages = hasGalleryImages ? allImages : [project.image];
+  const displayImages = hasGalleryImages ? allImages : [project?.image || ''];
 
   // Image à afficher actuellement
-  const currentImage = displayImages[currentGalleryIndex] || project.image;
+  const currentImage = displayImages[currentGalleryIndex] || project?.image || '';
   const totalImages = displayImages.length;
 
   // Utiliser displayedImage s'il existe, sinon currentImage comme fallback
@@ -59,17 +57,14 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
   const currentIsVideo = isVideo(imageToDisplay);
 
-  // Utiliser les données réelles du projet
-  const date = project.date || '05.2025';
-  const name = project.name || 'GOLYO';
-  const subtitle = project.subtitle || 'HUB FOOTBALL';
-  const tags = project.tags || [];
-  const categories = project.categories || project.sanityData?.categories || [];
-  const projectId = project.projectId || 'GR052025';
-  const duration = project.duration || '21D';
+  // Utiliser les données réelles du projet (avec valeurs par défaut)
+  const date = project?.date || '05.2025';
+  const name = project?.name || 'GOLYO';
+  const categories = project?.categories || project?.sanityData?.categories || [];
+  const projectId = project?.projectId || 'GR052025';
   // Récupérer les créateurs et le website du projet
-  const creators = project.sanityData?.creators || [];
-  const website = project.sanityData?.website || project.website;
+  const creators = project?.sanityData?.creators || [];
+  const website = project?.sanityData?.website || project?.website;
 
   // Fonctions de navigation du carousel avec animation
   const handlePreviousImage = () => {
@@ -86,7 +81,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
         onComplete: () => {
           const newIndex = currentGalleryIndex - 1;
           setCurrentGalleryIndex(newIndex);
-          setDisplayedImage(displayImages[newIndex] || project.image);
+          setDisplayedImage(displayImages[newIndex] || project?.image || '');
           // Animation d'entrée
           gsap.fromTo([imageContainerRef.current, linksContainerRef.current], 
             { opacity: 0, x: -50 },
@@ -117,7 +112,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
         onComplete: () => {
           const newIndex = currentGalleryIndex + 1;
           setCurrentGalleryIndex(newIndex);
-          setDisplayedImage(displayImages[newIndex] || project.image);
+          setDisplayedImage(displayImages[newIndex] || project?.image || '');
           // Animation d'entrée
           gsap.fromTo([imageContainerRef.current, linksContainerRef.current],
             { opacity: 0, x: 50 },
@@ -136,11 +131,13 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
   // Reset l'index de la galerie quand on change de projet avec animation smooth
   useEffect(() => {
+    if (!project) return;
+    
     // Calculer la première image du nouveau projet
     const newProjectImages = project.galleryImages || [];
     const hasNewGalleryImages = newProjectImages.length > 0;
-    const newDisplayImages = hasNewGalleryImages ? newProjectImages : [project.image];
-    const firstImage = newDisplayImages[0] || project.image;
+    const newDisplayImages = hasNewGalleryImages ? newProjectImages : [project.image || ''];
+    const firstImage = newDisplayImages[0] || project.image || '';
 
     if (imageContainerRef.current && firstImage) {
       setIsTransitioning(true);
@@ -185,7 +182,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
         setDisplayedImage(firstImage);
       }
     }
-  }, [project.id, project.galleryImages, project.image]);
+  }, [project?.id, project?.galleryImages, project?.image]);
 
   // Animation des crans de la boussole qui bougent horizontalement
   const animateBoussole = (direction: 'left' | 'right') => {
@@ -215,6 +212,8 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
       ease: "power2.out"
     });
   };
+
+  if (!isVisible || !project) return null;
 
   return (
     <div className="fixed inset-0 z-30">

@@ -8,7 +8,7 @@ interface PresentationProps {
   onReturn?: () => void;
 }
 
-export default function Presentation({ isVisible, onReturn }: PresentationProps) {
+export default function Presentation({ isVisible }: PresentationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const title1Ref = useRef<HTMLHeadingElement>(null);
   const title2Ref = useRef<HTMLHeadingElement>(null);
@@ -94,7 +94,7 @@ export default function Presentation({ isVisible, onReturn }: PresentationProps)
                 className="text-white text-[16px] leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Le BMS DNA est né des cendres du regretté @HasJoelstreamed qui avait créé le Vendredi des Artistes de la communauté BMS: chaque vendredi, toutes celles et ceux ayant un talent particulier pouvaient le mettre en avant. C'est ainsi que @idamah et @Jojolepaga, dont vous avez déjà pu voir les travaux, se sont révélés. Idamah a alors proposé, avec l'aide de @Yannis_dev, @yacinetha et @super8_studiio, à @Imaginary_Flame cette idée de collectif.
+                Le BMS DNA est né des cendres du regretté @HasJoelstreamed qui avait créé le Vendredi des Artistes de la communauté BMS: chaque vendredi, toutes celles et ceux ayant un talent particulier pouvaient le mettre en avant. C&apos;est ainsi que @idamah et @Jojolepaga, dont vous avez déjà pu voir les travaux, se sont révélés. Idamah a alors proposé, avec l&apos;aide de @Yannis_dev, @yacinetha et @super8_studiio, à @Imaginary_Flame cette idée de collectif.
               </p>
             </div>
             
@@ -106,7 +106,7 @@ export default function Presentation({ isVisible, onReturn }: PresentationProps)
                 className="text-white text-[16px] leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Nous avons pour objectif de révéler et rassembler les personnes créatives issues de la communauté BMS et d'internet en général. Que vous soyez artiste, créateurs, penseurs ou bâtisseurs prêts à transformers vos passions en projets concrets et à inspirer les autres à en faire autant.
+                Nous avons pour objectif de révéler et rassembler les personnes créatives issues de la communauté BMS et d&apos;internet en général. Que vous soyez artiste, créateurs, penseurs ou bâtisseurs prêts à transformers vos passions en projets concrets et à inspirer les autres à en faire autant.
               </p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default function Presentation({ isVisible, onReturn }: PresentationProps)
                 className="text-white text-lg leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Une agence de talents, une association, un studio créatif, affiliée à BMS où tout un chacun peut offrir ses services. Que ce soit de la rédaction d'articles, du montage, du graphisme, de la musique, de l'événementiel... L'objectif sera de vous permettre de mettre votre savoir-faire en valeur à travers divers projets en collaborations avec d'autres membres du collectif.
+                Une agence de talents, une association, un studio créatif, affiliée à BMS où tout un chacun peut offrir ses services. Que ce soit de la rédaction d&apos;articles, du montage, du graphisme, de la musique, de l&apos;événementiel... L&apos;objectif sera de vous permettre de mettre votre savoir-faire en valeur à travers divers projets en collaborations avec d&apos;autres membres du collectif.
               </p>
             </div>
             
@@ -143,7 +143,7 @@ export default function Presentation({ isVisible, onReturn }: PresentationProps)
                 className="text-white text-lg leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Bien évidemment, faire partie de cette communauté n'oblige en rien à participer aux projets, c'est pourquoi, contrairement à d'autres agences/plateformes, nous vous offrons la possibilité de faire valoir vos propres projets créatifs sans contrepartie ! Votre promotion sera faites sur tous nos réseaux ainsi qu'à travers ce site web et une newsteller (une sélection hebdomadaire des meilleurs projets sera faites)
+                Bien évidemment, faire partie de cette communauté n&apos;oblige en rien à participer aux projets, c&apos;est pourquoi, contrairement à d&apos;autres agences/plateformes, nous vous offrons la possibilité de faire valoir vos propres projets créatifs sans contrepartie ! Votre promotion sera faites sur tous nos réseaux ainsi qu&apos;à travers ce site web et une newsteller (une sélection hebdomadaire des meilleurs projets sera faites)
               </p>
             </div>
           </div>
