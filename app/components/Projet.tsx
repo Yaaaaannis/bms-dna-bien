@@ -182,7 +182,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
         setDisplayedImage(firstImage);
       }
     }
-  }, [project?.id, project?.galleryImages, project?.image]);
+  }, [project]);
 
   // Animation des crans de la boussole qui bougent horizontalement
   const animateBoussole = (direction: 'left' | 'right') => {

@@ -22,7 +22,7 @@ export default function Header({
   isServiceVisible,
   isCollectifVisible,
   isPresentationVisible = false,
-  isProjetsVisible: _isProjetsVisible,
+  isProjetsVisible: _isProjetsVisible, // eslint-disable-line @typescript-eslint/no-unused-vars
   isContactVisible
 }: HeaderProps) {
   return (

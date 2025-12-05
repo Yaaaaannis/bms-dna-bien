@@ -19,7 +19,7 @@ export default function Home() {
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [email, setEmail] = useState("");
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [_submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [allProjects, setAllProjects] = useState<Project[]>([]);
 
 
@@ -153,7 +153,7 @@ export default function Home() {
     }
   }, [isProjetsVisible, selectedProject, currentProjectIndex, allProjects.length]);
 
-  const submitEmail = async (e: React.FormEvent) => {
+  const _submitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       setSubmitStatus("error");

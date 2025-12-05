@@ -15,7 +15,7 @@ interface BackgroundProps {
   isProjetsVisible: boolean;
 }
 
-export default function Background({ servicePoints, isServiceVisible, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
+export default function Background({ servicePoints, isServiceVisible: _isServiceVisible, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
   const meshRef = useRef<Group>(null);
   const [connectionPoints, setConnectionPoints] = useState<Vector3[]>([]);
   const [isMobile, setIsMobile] = useState(false);
