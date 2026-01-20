@@ -19,29 +19,29 @@ export const Model = forwardRef<Group, ModelProps>(({ isAnimated = true, onConne
   const group = useRef<Group>(null)
   const meshRef = useRef<Mesh>(null)
   const lastUpdateTime = useRef(0)
-  
+
   // Références aux mesh de connexion
   const connection1Ref = useRef<Mesh>(null)
   const connection2Ref = useRef<Mesh>(null)
   const connection3Ref = useRef<Mesh>(null)
   const connection4Ref = useRef<Mesh>(null)
   const connection1001Ref = useRef<Mesh>(null)
-  
+
   const { nodes, animations } = useGLTF('/dna-draco.glb')
   const { actions } = useAnimations(animations, ref as RefObject<Group> || group)
 
   // Créer un matériau chrome wireframe
-  const chromeMaterial = new MeshStandardMaterial({
-    color: '#ffffff',
+  const chromeMaterial = React.useMemo(() => new MeshStandardMaterial({
+    color: '#45050c', // Couleur blanche/argentée
     metalness: 1.0,
     roughness: 0.0,
     envMapIntensity: 2.0,
-    emissive: '#000000',
-    emissiveIntensity: 0.0,
+    emissive: '#45050c', // Émission blanche
+    emissiveIntensity: 0.3, // Intensité réduite pour un effet plus subtil
     transparent: true,
-    opacity: 0.05, // Encore plus transparent pour un effet wireframe pur
-    wireframe: false, // On garde le mesh mais très transparent
-  })
+    opacity: 0.2, // Légèrement plus visible
+    wireframe: false,
+  }), [])
 
   useEffect(() => {
     // Jouer l'animation de base du modèle si elle existe et si isAnimated est true
@@ -64,7 +64,7 @@ export const Model = forwardRef<Group, ModelProps>(({ isAnimated = true, onConne
         }
       }
     }
-    
+
     // Envoyer les points de connexion une fois que le modèle est chargé
     if (onConnectionPointsUpdate) {
       const connectionRefs = [connection1Ref, connection2Ref, connection3Ref, connection4Ref, connection1001Ref];
@@ -75,7 +75,7 @@ export const Model = forwardRef<Group, ModelProps>(({ isAnimated = true, onConne
           ref.current!.getWorldPosition(worldPos);
           return worldPos;
         });
-      
+
       if (connectionPositions.length > 0) {
         onConnectionPointsUpdate(connectionPositions);
       }
@@ -88,7 +88,7 @@ export const Model = forwardRef<Group, ModelProps>(({ isAnimated = true, onConne
       // Variation subtile de l'intensité de l'environnement
       chromeMaterial.envMapIntensity = 2.0 + Math.sin(state.clock.elapsedTime * 0.5) * 0.3
     }
-    
+
     // Mettre à jour les positions des points de connexion avec les transformations du modèle
     // Throttle les mises à jour pour éviter les boucles infinies (max 30fps)
     if (onConnectionPointsUpdate && state.clock.elapsedTime - lastUpdateTime.current > 0.033) {
@@ -100,7 +100,7 @@ export const Model = forwardRef<Group, ModelProps>(({ isAnimated = true, onConne
           ref.current!.getWorldPosition(worldPos);
           return worldPos;
         });
-      
+
       if (connectionPositions.length > 0) {
         lastUpdateTime.current = state.clock.elapsedTime;
         onConnectionPointsUpdate(connectionPositions);
@@ -123,9 +123,11 @@ export const Model = forwardRef<Group, ModelProps>(({ isAnimated = true, onConne
           <Edges
             geometry={(nodes.DNA_logo_3d as Mesh).geometry}
             scale={1.002} // Légèrement plus grand pour éviter le z-fighting
+            color="red"
+            threshold={15} // Affiche plus d'arêtes
           />
         </mesh>
-        
+
         {/* Sphères de connexion intégrées au modèle */}
         <mesh
           ref={connection1Ref}

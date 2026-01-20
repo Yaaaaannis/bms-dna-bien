@@ -44,6 +44,16 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const services = useMemo(() => [
     'DIRECTION ARTISTIQUE',
@@ -58,14 +68,14 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
   const filters = useMemo(() => {
     // Commencer par "ALL"
     const filterList = ['ALL'];
-    
+
     // Ajouter toutes les catégories définies dans Sanity (par valeur pour l'affichage)
     const categoryValues = SANITY_CATEGORIES.map(cat => cat.value);
     filterList.push(...categoryValues);
-    
+
     console.log('Filters generated:', filterList);
     console.log('SANITY_CATEGORIES:', SANITY_CATEGORIES);
-    
+
     return filterList;
   }, []);
 
@@ -117,9 +127,9 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
   // Filtrer les projets selon le filtre sélectionné
   const filteredProjects = useMemo(() => {
     if (selectedFilter === 'ALL') return projects;
-    
+
     // Vérifier si le projet a la catégorie sélectionnée dans son array de catégories
-    return projects.filter(project => 
+    return projects.filter(project =>
       project.categories?.includes(selectedFilter) || project.category === selectedFilter
     );
   }, [projects, selectedFilter]);
@@ -316,12 +326,12 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
       className="fixed inset-0 z-10 overflow-y-auto pointer-events-none"
     >
       {/* Section Services - disparaît lors du scroll */}
-      <div className="h-screen flex items-center justify-start px-64 pt-32 pointer-events-auto">
-        <div ref={servicesRef} className="space-y-8">
+      <div className="h-screen flex items-center justify-start px-6 lg:px-64 pt-24 lg:pt-32 pointer-events-auto">
+        <div ref={servicesRef} className="space-y-6 lg:space-y-8">
           {services.map((service, index) => (
             <div key={index} className="relative group">
               <h2
-                className="text-white text-[36px] font-bold uppercase tracking-wider cursor-pointer hover:text-gray-300 transition-colors duration-300"
+                className="text-white text-2xl lg:text-[36px] font-bold uppercase tracking-wider cursor-pointer hover:text-gray-300 transition-colors duration-300"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
                 {service}
@@ -332,24 +342,21 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
       </div>
 
       {/* Section Galerie - apparaît après le scroll, devient sticky à 40vh et prend 60% de hauteur */}
-      <div className="h-[150vh] px-16 flex justify-start pointer-events-auto">
+      <div className="h-[150vh] px-4 lg:px-16 flex justify-start pointer-events-auto">
         {/* Container galerie */}
         <div
-          className="sticky"
+          className="sticky w-full lg:w-fit lg:min-w-[60%] max-w-full"
           style={{
             top: '30vh',
             height: '60vh',
-            zIndex: 20,
-            width: 'fit-content',
-            minWidth: '60%',
-            maxWidth: '100%'
+            zIndex: 20
           }}
         >
           <div className="h-full flex flex-col relative">
             {/* Barre de filtres - toujours visible et fixe au-dessus de la galerie */}
             <div
               ref={filtersRef}
-              className="flex items-center gap-20 mb-4 bg-black/80 backdrop-blur-sm py-2 flex-shrink-0 w-fit sticky top-0"
+              className="flex items-center gap-6 lg:gap-20 mb-4 bg-black/80 backdrop-blur-sm py-2 flex-shrink-0 w-full lg:w-fit sticky top-0 overflow-x-auto no-scrollbar pr-4"
               style={{ zIndex: 30 }}
             >
               {filters.length === 0 && (
@@ -358,20 +365,20 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
               {filters.map((filter) => {
                 console.log('Rendering filter button:', filter);
                 return (
-                <button
-                  key={filter}
-                  onClick={() => setSelectedFilter(filter)}
-                  className={`text-white text-sm uppercase tracking-wider transition-all duration-200 relative ${selectedFilter === filter
-                    ? 'text-white'
-                    : 'text-gray-400 hover:text-white'
-                    }`}
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                >
-                  {filter}
-                  {selectedFilter === filter && (
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white mt-1"></div>
-                  )}
-                </button>
+                  <button
+                    key={filter}
+                    onClick={() => setSelectedFilter(filter)}
+                    className={`text-white text-sm uppercase tracking-wider transition-all duration-200 relative whitespace-nowrap flex-shrink-0 ${selectedFilter === filter
+                      ? 'text-white'
+                      : 'text-gray-400 hover:text-white'
+                      }`}
+                    style={{ fontFamily: 'Satoshi, sans-serif' }}
+                  >
+                    {filter}
+                    {selectedFilter === filter && (
+                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white mt-1"></div>
+                    )}
+                  </button>
                 );
               })}
             </div>
@@ -379,7 +386,7 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
             {/* Galerie simple - grille ordonnée sans espaces */}
             <div
               ref={galleryRef}
-              className="overflow-y-auto overflow-x-hidden flex-1 w-[95%]"
+              className="overflow-y-auto overflow-x-hidden flex-1 w-full lg:w-[95%]"
               style={{
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none'
@@ -389,12 +396,17 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
                 div::-webkit-scrollbar {
                   display: none;
                 }
+                .no-scrollbar::-webkit-scrollbar {
+                  display: none;
+                }
+                .no-scrollbar {
+                  -ms-overflow-style: none;
+                  scrollbar-width: none;
+                }
               `}</style>
               <div
-                className="grid"
+                className="grid grid-cols-4 auto-rows-[100px] lg:auto-rows-[200px]"
                 style={{
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gridAutoRows: '200px',
                   gridAutoFlow: 'dense',
                   gap: '10px',
                   margin: 0,
@@ -419,7 +431,7 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
                   // Forcer certaines images à être carrées pour rendre la grille plus compacte
                   // 1. Forcer les images proches du carré (ratio entre 0.85 et 1.15) à rester carrées
                   // 2. Forcer une image sur 4 à être carrée même si elle pourrait être plus grande
-                  const forceSquare = 
+                  const forceSquare =
                     (aspectRatio >= 0.85 && aspectRatio <= 1.15) || // Proche du carré
                     (index % 4 === 0 && aspectRatio >= 0.75 && aspectRatio <= 1.4); // Une sur 4 dans une plage raisonnable
 

@@ -24,15 +24,15 @@ interface TeamMemberCardProps {
 const LabelValue = ({ label, value }: { label: string, value: string }) => {
     const isTwitterHandle = label === "ID" && value.startsWith("@");
     const twitterUrl = isTwitterHandle ? `https://twitter.com/${value.slice(1)}` : null;
-    
+
     return (
         <div className="flex flex-col border-b border-white/40 pb-1 mb-2">
             <div className="flex gap-2 items-baseline">
                 <span className="text-white font-bold uppercase whitespace-nowrap" style={{ fontFamily: 'DrukWideBold, sans-serif', fontSize: '11px' }}>{label} : </span>
                 {isTwitterHandle && twitterUrl ? (
-                    <a 
-                        href={twitterUrl} 
-                        target="_blank" 
+                    <a
+                        href={twitterUrl}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-white text-sm truncate font-sans hover:underline"
                     >
@@ -48,10 +48,10 @@ const LabelValue = ({ label, value }: { label: string, value: string }) => {
 
 export default function TeamMemberCard({ member }: TeamMemberCardProps) {
     return (
-        <div className="w-full text-white font-sans max-w-3xl scale-95 origin-bottom-right">
+        <div className="w-full text-white font-sans max-w-3xl lg:scale-95 origin-bottom lg:origin-bottom-right bg-black/90 lg:bg-transparent p-4 lg:p-0 rounded-xl lg:rounded-none border border-white/20 lg:border-none backdrop-blur-sm lg:backdrop-blur-none">
             {/* Header info */}
             <div className="flex justify-between items-start mb-2 text-[11px] font-mono tracking-wider">
-                <div className="flex flex-col gap-0.5 w-1/3">
+                <div className="flex flex-col gap-0.5 w-full lg:w-1/3">
                     <div className="flex justify-between border-b border-white/20 pb-0.5">
                         <span>FILE NUMBER</span>
                         <span>{member.fileNumber}</span>
@@ -65,7 +65,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                         <span>{member.sruId}</span>
                     </div>
                 </div>
-                <div className="flex -mr-[20px]">
+                <div className="hidden lg:flex -mr-[20px]">
                     <div className="flex flex-col items-start text-right">
                         <div className="text-[8px]  text-gray-400 font-mono ml-12">Creative Collective</div>
                         <div
@@ -87,23 +87,49 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                 </div>
             </div>
 
-            <div className="flex gap-4 h-[450px]">
-                {/* Column 1: Image & Fingerprints (1/3) */}
-                <div className="w-1/3 flex flex-col gap-2 h-full">
-                    <div className="relative w-full flex-1 bg-white border border-white p-1">
-                        {/* Mugshot lines background */}
-                        <div
-                            className="absolute inset-0 pointer-events-none z-10 opacity-30"
-                            style={{
-                                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 19px, #000000 20px)',
-                            }}
-                        />
-                        <div className="relative w-full h-full grayscale contrast-125 bg-white">
+            <div className="flex flex-col lg:flex-row gap-4 h-auto lg:h-[450px]">
+
+                {/* Mobile Top Row: Image + Details */}
+                <div className="flex lg:hidden flex-row gap-4">
+                    {/* Image */}
+                    <div className="relative w-32 h-40 shrink-0 border border-white">
+                        <div className="relative w-full h-full contrast-125">
                             <Image
                                 src={member.cardImage || member.image}
                                 alt={member.name}
                                 fill
-                                className="object-contain object-bottom"
+                                className="object-cover"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Details */}
+                    <div className="flex flex-col w-full min-w-0">
+                        <div
+                            className="text-xs font-bold uppercase mb-1 truncate"
+                            style={{ fontFamily: 'DrukWideBold, sans-serif' }}
+                        >
+                            {member.idCode}
+                        </div>
+                        <div className="flex flex-col gap-0.5 border-t border-white pt-1">
+                            <LabelValue label="NAME" value={member.name} />
+                            <LabelValue label="ID" value={member.handle} />
+                            <LabelValue label="JOB" value={member.job} />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Column 1: Image & Fingerprints (Desktop Only for Image structure) */}
+                <div className="hidden lg:flex w-1/3 flex-col gap-2 h-full">
+                    <div className="relative w-full flex-1  border border-white">
+                        {/* Mugshot lines background */}
+
+                        <div className="relative w-full h-full  contrast-125 ">
+                            <Image
+                                src={member.cardImage || member.image}
+                                alt={member.name}
+                                fill
+                                className="object-cover"
                             />
                         </div>
                     </div>
@@ -113,59 +139,61 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                         <div className="text-[11px] font-bold uppercase mb-1 border-b border-white inline-block pr-4">
                             FINGERPRINTS /
                         </div>
-                        <div className="grid grid-cols-5 gap-1 mt-1 opacity-50">
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                                <div key={i} className="aspect-[3/4] border border-white/30 rounded-full flex items-center justify-center">
-                                    <div className="w-3/4 h-3/4 bg-white/10 rounded-full"></div>
-                                </div>
-                            ))}
+                        <div className="relative w-full mt-1 border border-white/30">
+                            <Image
+                                src="/images/doigt.jpg"
+                                alt="Fingerprint"
+                                width={541}
+                                height={249}
+                                className="w-full h-auto block"
+                            />
                         </div>
                     </div>
                 </div>
 
-                {/* Column 2: Details (1/3) */}
-                <div className="w-1/3 flex flex-col font-sans h-full">
-                    {/* ID Code Header */}
-                    <div
-                        className="text-xs font-bold uppercase mb-1"
-                        style={{ fontFamily: 'DrukWideBold, sans-serif' }}
-                    >
-                        {member.idCode}
+                {/* Column 2: Details (Desktop) / Missions (Mobile & Desktop) */}
+                <div className="w-full lg:w-1/3 flex flex-col font-sans h-full">
+                    {/* Desktop ID & Details - Hidden on mobile as we showed them above */}
+                    <div className="hidden lg:block">
+                        <div
+                            className="text-xs font-bold uppercase mb-1"
+                            style={{ fontFamily: 'DrukWideBold, sans-serif' }}
+                        >
+                            {member.idCode}
+                        </div>
+
+                        {/* Details List */}
+                        <div className="flex flex-col gap-0.5 mb-4 border-t border-white pt-1">
+                            <LabelValue label="NAME" value={member.name} />
+                            <LabelValue label="ID" value={member.handle} />
+                            <LabelValue label="PRONOUNS" value={member.pronouns} />
+                            <LabelValue label="AGE" value={member.age} />
+                            <LabelValue label="JOB" value={member.job} />
+                            <LabelValue label="MAIL" value={member.mail} />
+                        </div>
                     </div>
 
-                    {/* Details List */}
-                    <div className="flex flex-col gap-0.5 mb-4 border-t border-white pt-1">
-                        <LabelValue label="NAME" value={member.name} />
-                        <LabelValue label="ID" value={member.handle} />
-                        <LabelValue label="PRONOUNS" value={member.pronouns} />
-                        <LabelValue label="AGE" value={member.age} />
-                        <LabelValue label="JOB" value={member.job} />
-                        <LabelValue label="MAIL" value={member.mail} />
-                    </div>
-
-                    {/* Missions & Text */}
-                    <div className="flex-1">
+                    {/* Missions & Text - Visible on both, but style adjusted */}
+                    <div className="flex-1 mt-2 lg:mt-0">
                         <div className="text-[11px] font-bold text-orange-400 uppercase mb-1">
                             MISSIONS & QUALIFICATIONS
                         </div>
-                        <p className="text-[11px] leading-relaxed text-gray-300 mb-2 text-justify ">
+                        <p className="text-[11px] leading-relaxed text-gray-300 mb-2 text-justify line-clamp-[8] lg:line-clamp-none">
                             {member.missions}. <br />
                             {member.description}
                         </p>
-
-                        
                     </div>
                 </div>
 
-                {/* Column 3: GIF / Vertical Graphic (1/3) */}
-                <div className="w-1/3 h-full border border-white relative overflow-hidden flex flex-col items-center justify-center bg-black/50">
-                    {/* Placeholder for GIF */}
-                    <div className="w-full h-full opacity-20 flex flex-col items-center gap-1 text-[6px] font-mono leading-none text-center pt-1 animate-pulse">
-                        <span className="text-xs font-bold">GIF AREA</span>
-                        {Array.from({ length: 40 }).map((_, i) => (
-                            <span key={i} className="block w-full">{i % 2 === 0 ? '<DNA>' : '</>'}</span>
-                        ))}
-                    </div>
+                {/* Column 3: GIF / Vertical Graphic (1/3) - Hidden on Mobile */}
+                <div className="hidden lg:flex w-1/3 h-full border border-white relative overflow-hidden flex-col items-center justify-center bg-black/50">
+                    <Image
+                        src="/images/adn.gif"
+                        alt="DNA Animation"
+                        fill
+                        className="object-cover"
+                        unoptimized
+                    />
                 </div>
 
             </div>

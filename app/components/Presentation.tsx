@@ -73,77 +73,77 @@ export default function Presentation({ isVisible }: PresentationProps) {
 
   return (
     <div className="fixed inset-0 z-25 flex items-start justify-start bg-transparent overflow-y-auto">
-      <div ref={containerRef} className="relative w-full max-w-5xl mx-64 pt-50  pb-32">
-        
+      <div ref={containerRef} className="relative w-full max-w-full lg:max-w-5xl mx-6 lg:mx-64 pt-48 lg:pt-50 pb-32">
+
         {/* Section 1: UN COLLECTIF CRÉATIF */}
-        <div className="mb-20">
-          <h1 
+        <div className="mb-12 lg:mb-20 ml-0 lg:-ml-32">
+          <h1
             ref={title1Ref}
-            className="text-[40px] font-bold text-white uppercase mb-4"
+            className="text-3xl lg:text-[40px] font-bold text-white uppercase mb-4"
             style={{ fontFamily: 'DrukWideBold, sans-serif' }}
           >
             UN COLLECTIF CRÉATIF
           </h1>
-          
+
           <div className="space-y-4">
-            <div 
+            <div
               ref={el => { paragraphsRef.current[0] = el as HTMLDivElement; }}
-              className="w-[75%]"
+              className="w-full lg:w-[75%]"
             >
-              <p 
-                className="text-white text-[16px] leading-relaxed"
+              <p
+                className="text-white text-sm lg:text-[16px] leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Le BMS DNA est né des cendres du regretté @HasJoelstreamed qui avait créé le Vendredi des Artistes de la communauté BMS: chaque vendredi, toutes celles et ceux ayant un talent particulier pouvaient le mettre en avant. C&apos;est ainsi que @idamah et @Jojolepaga, dont vous avez déjà pu voir les travaux, se sont révélés. Idamah a alors proposé, avec l&apos;aide de @Yannis_dev, @yacinetha et @super8_studiio, à @Imaginary_Flame cette idée de collectif.
+                BMS DNA est né de l’envie de mettre en lumière les talents de la communauté BMS. Chaque vendredi, des artistes, monteurs, graphistes, musiciens et créateurs partageaient leurs projets.
               </p>
             </div>
-            
-            <div 
+
+            <div
               ref={el => { paragraphsRef.current[1] = el as HTMLDivElement; }}
-              className="w-[75%]"
+              className="w-full lg:w-[75%]"
             >
-              <p 
-                className="text-white text-[16px] leading-relaxed"
+              <p
+                className="text-white text-sm lg:text-[16px] leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Nous avons pour objectif de révéler et rassembler les personnes créatives issues de la communauté BMS et d&apos;internet en général. Que vous soyez artiste, créateurs, penseurs ou bâtisseurs prêts à transformers vos passions en projets concrets et à inspirer les autres à en faire autant.
+                De là est né l’idée d’un collectif : rassembler ceux qui veulent transformer leurs passions en projets concrets.
               </p>
             </div>
           </div>
         </div>
 
         {/* Section 2: LE PROJET */}
-        <div>
-          <h2 
+        <div className="max-w-full lg:max-w-2xl">
+          <h2
             ref={title2Ref}
-            className="text-5xl font-bold text-white uppercase mb-8"
+            className="text-3xl lg:text-5xl font-bold text-white uppercase mb-8"
             style={{ fontFamily: 'DrukWideBold, sans-serif' }}
           >
             LE PROJET
           </h2>
-          
+
           <div className="space-y-6">
-            <div 
+            <div
               ref={el => { paragraphsRef.current[2] = el as HTMLDivElement; }}
               className="w-full"
             >
-              <p 
-                className="text-white text-lg leading-relaxed"
+              <p
+                className="text-white text-base lg:text-lg leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Une agence de talents, une association, un studio créatif, affiliée à BMS où tout un chacun peut offrir ses services. Que ce soit de la rédaction d&apos;articles, du montage, du graphisme, de la musique, de l&apos;événementiel... L&apos;objectif sera de vous permettre de mettre votre savoir-faire en valeur à travers divers projets en collaborations avec d&apos;autres membres du collectif.
+                BMS DNA fonctionne comme un studio créatif et une plateforme de talents. Chacun peut proposer ses compétences, collaborer sur des projets, ou simplement faire connaître son travail via nos réseaux.
               </p>
             </div>
-            
-            <div 
+
+            <div
               ref={el => { paragraphsRef.current[3] = el as HTMLDivElement; }}
               className="w-full"
             >
-              <p 
-                className="text-white text-lg leading-relaxed"
+              <p
+                className="text-white text-base lg:text-lg leading-relaxed"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
-                Bien évidemment, faire partie de cette communauté n&apos;oblige en rien à participer aux projets, c&apos;est pourquoi, contrairement à d&apos;autres agences/plateformes, nous vous offrons la possibilité de faire valoir vos propres projets créatifs sans contrepartie ! Votre promotion sera faites sur tous nos réseaux ainsi qu&apos;à travers ce site web et une newsteller (une sélection hebdomadaire des meilleurs projets sera faites)
+                Rejoindre le collectif n’oblige à rien — nous offrons un espace pour créer, partager et évoluer ensemble.
               </p>
             </div>
           </div>

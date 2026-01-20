@@ -70,7 +70,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
   const handlePreviousImage = () => {
     if (isTransitioning || currentGalleryIndex === 0) return;
     setIsTransitioning(true);
-    
+
     // Animation de sortie
     if (imageContainerRef.current && linksContainerRef.current) {
       gsap.to([imageContainerRef.current, linksContainerRef.current], {
@@ -83,7 +83,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           setCurrentGalleryIndex(newIndex);
           setDisplayedImage(displayImages[newIndex] || project?.image || '');
           // Animation d'entrée
-          gsap.fromTo([imageContainerRef.current, linksContainerRef.current], 
+          gsap.fromTo([imageContainerRef.current, linksContainerRef.current],
             { opacity: 0, x: -50 },
             {
               opacity: 1,
@@ -101,7 +101,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
   const handleNextImage = () => {
     if (isTransitioning || currentGalleryIndex === totalImages - 1) return;
     setIsTransitioning(true);
-    
+
     // Animation de sortie
     if (imageContainerRef.current && linksContainerRef.current) {
       gsap.to([imageContainerRef.current, linksContainerRef.current], {
@@ -132,7 +132,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
   // Reset l'index de la galerie quand on change de projet avec animation smooth
   useEffect(() => {
     if (!project) return;
-    
+
     // Calculer la première image du nouveau projet
     const newProjectImages = project.galleryImages || [];
     const hasNewGalleryImages = newProjectImages.length > 0;
@@ -141,7 +141,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
     if (imageContainerRef.current && firstImage) {
       setIsTransitioning(true);
-      
+
       // Timeline pour une animation fluide et coordonnée
       const tl = gsap.timeline({
         onComplete: () => {
@@ -162,20 +162,20 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           setDisplayedImage(firstImage);
         }
       })
-      // Phase 2: Reset position et préparation pour l'entrée (l'image a déjà changé)
-      .set([imageContainerRef.current, linksContainerRef.current], {
-        y: 20,
-        scale: 0.98,
-        opacity: 0
-      })
-      // Phase 3: Fade in doux avec translation vers le centre (image et liens)
-      .to([imageContainerRef.current, linksContainerRef.current], {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.5,
-        ease: "power2.inOut"
-      });
+        // Phase 2: Reset position et préparation pour l'entrée (l'image a déjà changé)
+        .set([imageContainerRef.current, linksContainerRef.current], {
+          y: 20,
+          scale: 0.98,
+          opacity: 0
+        })
+        // Phase 3: Fade in doux avec translation vers le centre (image et liens)
+        .to([imageContainerRef.current, linksContainerRef.current], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.inOut"
+        });
     } else {
       setCurrentGalleryIndex(0);
       if (firstImage) {
@@ -221,7 +221,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
       {onClose && (
         <button
           onClick={onClose}
-          className="absolute top-8 right-8 z-40 text-white text-2xl font-bold hover:text-gray-300 transition-colors duration-200"
+          className="absolute top-4 right-4 lg:top-8 lg:right-8 z-40 text-white text-2xl font-bold hover:text-gray-300 transition-colors duration-200"
           style={{ fontFamily: 'Satoshi, sans-serif' }}
           aria-label="Fermer"
         >
@@ -230,7 +230,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
       )}
 
       {/* Bandeau image/vidéo collé à gauche, positionné par rapport au viewport */}
-      <div className="absolute top-[30%] left-0 w-[60%] h-[400px] relative">
+      <div className="absolute top-[20%] lg:top-[30%] left-[5%] w-[90%] lg:left-0 lg:w-[60%] h-[60vh] lg:h-[400px] relative">
         <div ref={imageContainerRef} className="relative w-full h-full overflow-hidden">
           {imageToDisplay && (currentIsVideo ? (
             <video
@@ -258,36 +258,36 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           {/* Overlay textes à gauche */}
           <div className="absolute inset-0 text-white" style={{ fontFamily: 'Satoshi, sans-serif' }}>
             {/* Bloc haut collé */}
-            <div className="absolute top-0 left-[10%]">
-              <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>POSTÉ / {date}</p>
-              <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}  >PROJET / {name}</p>
-          
-                {categories.length > 0 && (
-                  <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
-                    {categories.length === 1 ? 'CATEGORY' : 'CATEGORIES'} / {categories.map((category: string, index: number) => {
-                      const categoryInfo = SANITY_CATEGORIES.find(cat => cat.value === category);
-                      const categoryTitle = categoryInfo?.title || category;
-                      return (
-                        <span key={index}>
-                          {categoryTitle}
-                          {index < categories.length - 1 && <span className="mx-2">/</span>}
-                        </span>
-                      );
-                    })}
-                  </p>
-                )}
-                
+            <div className="absolute top-4 left-4 lg:top-0 lg:left-[10%]">
+              <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>POSTÉ / {date}</p>
+              <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}  >PROJET / {name}</p>
+
+              {categories.length > 0 && (
+                <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+                  {categories.length === 1 ? 'CATEGORY' : 'CATEGORIES'} / {categories.map((category: string, index: number) => {
+                    const categoryInfo = SANITY_CATEGORIES.find(cat => cat.value === category);
+                    const categoryTitle = categoryInfo?.title || category;
+                    return (
+                      <span key={index}>
+                        {categoryTitle}
+                        {index < categories.length - 1 && <span className="mx-2">/</span>}
+                      </span>
+                    );
+                  })}
+                </p>
+              )}
+
             </div>
             {/* Bloc bas collé - texte seulement */}
-            <div className="absolute bottom-0 left-[10%]">
-              <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>ID / {projectId}</p>
+            <div className="absolute bottom-4 left-4 lg:bottom-0 lg:left-[10%]">
+              <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>ID / {projectId}</p>
               {website && (
-                <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+                <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
                   WEB / SITE
                 </p>
               )}
               {creators.length > 0 && (
-                <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+                <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
                   BY / {creators.map((creator, index) => (
                     <span key={index}>
                       {creator.name}
@@ -299,19 +299,19 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
             </div>
             {/* Index du projet dans le coin bas droit */}
             {currentIndex !== undefined && totalProjects !== undefined && (
-              <div className="absolute bottom-[0%] right-[20px] text-white opacity-80" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-                <span className="text-sm tracking-wider uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+              <div className="absolute bottom-4 right-4 lg:bottom-[0%] lg:right-[20px] text-white opacity-80" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+                <span className="text-xs lg:text-sm tracking-wider uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
                   {String(currentIndex + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}
                 </span>
               </div>
             )}
           </div>
         </div>
-        
+
         {/* Liens cliquables - en dehors de tous les conteneurs overlay */}
-        <div ref={linksContainerRef} className="absolute bottom-0 left-[10%] z-[200]" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+        <div ref={linksContainerRef} className="absolute bottom-4 left-4 lg:bottom-0 lg:left-[10%] z-[200]" style={{ fontFamily: 'Satoshi, sans-serif' }}>
           {website && (
-            <p className="text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+            <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
               WEB / <a
                 href={website}
                 target="_blank"
@@ -324,7 +324,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
             </p>
           )}
           {creators.length > 0 && (
-            <p className="text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+            <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
               BY / {creators.map((creator, index) => (
                 <span key={index}>
                   {creator.twitter ? (
@@ -350,7 +350,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
       {/* Carousel de navigation de la galerie - situé sous l'image */}
       {totalImages > 1 && (
-        <div className="absolute top-[calc(30%+400px-40px)] left-0 w-[60%] flex justify-center items-center gap-3 z-50">
+        <div className="absolute top-[calc(20%+60vh+10px)] lg:top-[calc(30%+400px-40px)] left-[5%] w-[90%] lg:left-0 lg:w-[60%] flex justify-center items-center gap-3 z-50">
           {/* Flèche gauche carousel */}
           <button
             onClick={(e) => {
@@ -388,9 +388,9 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
                 onClick={() => {
                   if (isTransitioning || index === currentGalleryIndex) return;
                   setIsTransitioning(true);
-                  
+
                   const direction = index > currentGalleryIndex ? 'next' : 'prev';
-                  
+
                   if (imageContainerRef.current) {
                     gsap.to(imageContainerRef.current, {
                       opacity: 0,
@@ -461,7 +461,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
 
       {/* Bande blanche type "boussole" pour futur carousel - sortie du conteneur image */}
-      <div className="absolute top-[calc(30%+400px+20px)] left-0 w-[60%] flex justify-center items-center gap-4 z-50" style={{ perspective: '1000px' }}>
+      <div className="absolute top-[calc(20%+60vh+60px)] lg:top-[calc(30%+400px+20px)] left-[5%] w-[90%] lg:left-0 lg:w-[60%] flex justify-center items-center gap-4 z-50" style={{ perspective: '1000px' }}>
         {/* Flèche gauche */}
         <button
           onClick={(e) => {
@@ -497,7 +497,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           </svg>
         </button>
 
-        <div ref={boussoleRef} className="w-64 h-4 border-b border-white/80 opacity-80 overflow-hidden">
+        <div ref={boussoleRef} className="w-48 lg:w-64 h-4 border-b border-white/80 opacity-80 overflow-hidden">
           <div className="relative w-full h-full">
             <div className="crans-container relative" style={{ width: '300%', height: '100%' }}>
               {/* Répéter les crans 3 fois pour qu'ils soient toujours visibles */}
@@ -557,7 +557,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
       </div>
 
       {/* Calque UI centré pour éléments annexes */}
-      <div className="relative w-full h-full max-w-7xl mx-auto px-8">
+      <div className="relative w-full h-full max-w-7xl mx-auto px-8 hidden lg:block">
         {/* Marqueur carré à droite du bandeau (optionnel, design) */}
         <div className="absolute top-[28%] left-[60%] w-12 h-12 border-2 border-white opacity-80"></div>
       </div>

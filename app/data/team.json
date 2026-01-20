@@ -13,7 +13,7 @@
         "missions": "Montage video, Photographie, Illustration, Storytelling, Développement, Création de contenu",
         "description": "Ebit ut facereperrum in conet esserum eum, officit porepe nonsent voluptatur sunt volessinctor moditate venit adis re labore omnient aut min poriores asinctatur resectempos eum faccab invelitatque.",
         "image": "/images/flame.jpg",
-        "cardImage": "/images/flame.jpg"
+        "cardImage": "/images/flame-dessin.png"
     },
     {
         "fileNumber": "DNA#0002",
@@ -29,7 +29,7 @@
         "missions": "Direction Artistique, Design, Branding, UI/UX",
         "description": "Ola de non cus ad most laborem enditi cusapis velendis sam venis arum eum quiassus. Blabore quatiora voluptatia doluptur sit eosameBea esequi repreium aut iur molorep ratendebis res a quam la perumqu atiatur sape sequiatur.",
         "image": "/images/idamah.jpg",
-        "cardImage": "/images/idamah.jpg"
+        "cardImage": "/images/idamah-dessin.png"
     },
     {
         "fileNumber": "DNA#0003",
@@ -45,7 +45,7 @@
         "missions": "Creative Developer, Fullstack, React, Next.js, ThreeJS, GSAP, Shaders ...",
         "description": "Développeur Web ayant travaillé aussi bien sur des projets créatifs que des projets industriels, ThreeJS enjoyer. Le dev que tu rêves d'avoir.",
         "image": "/images/yannis.jpg",
-        "cardImage": "/images/yannnis.jpg"
+        "cardImage": "/images/yannis-dessin.png"
     },
     {
         "fileNumber": "DNA#0004",
@@ -125,6 +125,6 @@
         "missions": "Marketing, Communication, Stratégie",
         "description": "Ebit ut facereperrum in conet esserum eum, officit porepe nonsent voluptatur sunt volessinctor moditate venit adis re labore omnient aut min poriores asinctatur resectempos eum faccab invelitatque.",
         "image": "/images/alan.jpg",
-        "cardImage": "/images/alan.jpg"
+        "cardImage": "/images/alan-dessin.png"
     }
 ]
