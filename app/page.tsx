@@ -18,8 +18,6 @@ export default function Home() {
   const [isProjetsVisible, setIsProjetsVisible] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [email, setEmail] = useState("");
-  const [_submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [allProjects, setAllProjects] = useState<Project[]>([]);
 
 
@@ -153,26 +151,6 @@ export default function Home() {
     }
   }, [isProjetsVisible, selectedProject, currentProjectIndex, allProjects.length]);
 
-  const _submitEmail = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      setSubmitStatus("error");
-      return;
-    }
-    setSubmitStatus("loading");
-    try {
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
-      if (!res.ok) throw new Error("bad");
-      setSubmitStatus("success");
-      setEmail("");
-    } catch {
-      setSubmitStatus("error");
-    }
-  };
 
   return (
     <div className="relative min-h-screen">

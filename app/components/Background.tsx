@@ -5,7 +5,7 @@ import { Environment } from "@react-three/drei";
 import { Model } from "./Model";
 import Connections3D from "./Connections3D";
 import { useRef, useState, useCallback, useEffect } from "react";
-import { Group, Vector3 } from "three";
+import { Group, Vector3, Object3D, Mesh, Material } from "three";
 import { gsap } from "gsap";
 
 interface BackgroundProps {
@@ -15,7 +15,7 @@ interface BackgroundProps {
   isProjetsVisible: boolean;
 }
 
-export default function Background({ servicePoints, isServiceVisible: _isServiceVisible, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
+export default function Background({ servicePoints, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
   const meshRef = useRef<Group>(null);
   const [connectionPoints, setConnectionPoints] = useState<Vector3[]>([]);
   const [isMobile, setIsMobile] = useState(false);
@@ -70,10 +70,14 @@ export default function Background({ servicePoints, isServiceVisible: _isService
     // Helper pour mettre à jour l'opacité
     const setOpacity = (opacity: number) => {
       if (meshRef.current) {
-        meshRef.current.traverse((child: any) => {
-          if (child.isMesh && child.material) {
-            child.material.opacity = opacity;
-            child.material.needsUpdate = true;
+        meshRef.current.traverse((child: Object3D) => {
+          if ((child as Mesh).isMesh) {
+            const mesh = child as Mesh;
+            const material = mesh.material as Material;
+            if (material) {
+              material.opacity = opacity;
+              material.needsUpdate = true;
+            }
           }
         });
       }
