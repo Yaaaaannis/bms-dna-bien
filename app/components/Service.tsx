@@ -313,7 +313,8 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-10 overflow-y-auto pointer-events-none"
+      className="fixed inset-0 z-10 overflow-y-auto pointer-events-none no-scrollbar"
+      style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
       {/* Section Services - disparaît lors du scroll */}
       <div className="h-screen flex items-center justify-start px-6 lg:px-64 pt-24 lg:pt-32 pointer-events-auto">
