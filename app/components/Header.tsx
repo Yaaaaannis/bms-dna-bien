@@ -1,35 +1,26 @@
 'use client';
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface HeaderProps {
-  onServicesClick: () => void;
-  onCollectifClick: () => void;
-  onProjetsClick: () => void;
-  onContactClick: () => void;
-  isServiceVisible: boolean;
-  isCollectifVisible: boolean;
-  isPresentationVisible?: boolean;
-  isProjetsVisible: boolean;
-  isContactVisible: boolean;
+  currentPath?: string;
 }
 
 export default function Header({
-  onServicesClick,
-  onCollectifClick,
-  onProjetsClick,
-  onContactClick,
-  isServiceVisible,
-  isCollectifVisible,
-  isPresentationVisible = false,
-  isProjetsVisible: _isProjetsVisible, // eslint-disable-line @typescript-eslint/no-unused-vars
-  isContactVisible
+  currentPath
 }: HeaderProps) {
+  const pathname = usePathname();
+  const activePath = currentPath || pathname;
+
+  const isActive = (path: string) => activePath === path;
+
   return (
     <header className="fixed top-0 left-0 z-40 p-8 transition-opacity duration-300 opacity-100">
       <div className="flex items-start space-x-40">
         {/* Logo */}
-        <div className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image
             src="/logo.svg"
             alt="BMS DNA Logo"
@@ -38,62 +29,62 @@ export default function Header({
             priority
             className=""
           />
-        </div>
+        </Link>
 
         {/* Navigation Menu */}
         <nav className="flex flex-col space-y-2 items-start">
-          <button
-            onClick={onCollectifClick}
-            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isPresentationVisible
+          <Link
+            href="/a-propos"
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/a-propos')
                 ? 'text-gray-300'
                 : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             COLLECTIF
-            {isPresentationVisible && (
+            {isActive('/a-propos') && (
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
             )}
-          </button>
-          <button
-            onClick={onServicesClick}
-            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isServiceVisible
+          </Link>
+          <Link
+            href="/services"
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/services')
                 ? 'text-gray-300'
                 : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             SERVICES
-            {isServiceVisible && (
+            {isActive('/services') && (
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
             )}
-          </button>
-          <button
-            onClick={onProjetsClick}
-            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isCollectifVisible
+          </Link>
+          <Link
+            href="/equipe"
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/equipe')
                 ? 'text-gray-300'
                 : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             TEAM
-            {isCollectifVisible && (
+            {isActive('/equipe') && (
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
             )}
-          </button>
-          <button
-            onClick={onContactClick}
-            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isContactVisible
+          </Link>
+          <Link
+            href="/contact"
+            className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/contact')
                 ? 'text-gray-300'
                 : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
             CONTACT
-            {isContactVisible && (
+            {isActive('/contact') && (
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
             )}
-          </button>
+          </Link>
         </nav>
       </div>
     </header>

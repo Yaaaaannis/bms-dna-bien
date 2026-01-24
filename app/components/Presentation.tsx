@@ -10,147 +10,141 @@ interface PresentationProps {
 
 export default function Presentation({ isVisible }: PresentationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const title1Ref = useRef<HTMLHeadingElement>(null);
-  const title2Ref = useRef<HTMLHeadingElement>(null);
-  const paragraphsRef = useRef<HTMLDivElement[]>([]);
+  // Refs for animated elements
+  const titleLine1Ref = useRef<HTMLDivElement>(null);
+  const titleLine2Ref = useRef<HTMLDivElement>(null);
+  const textLine1Ref = useRef<HTMLParagraphElement>(null);
+  const textLine2Ref = useRef<HTMLParagraphElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isVisible || !containerRef.current) return;
 
-    const tl = gsap.timeline({ delay: 0.3 });
+    const tl = gsap.timeline({ delay: 0.1 });
 
-    // Animation du premier titre
-    if (title1Ref.current) {
-      gsap.set(title1Ref.current, { opacity: 0, y: -20 });
-      tl.to(title1Ref.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      });
-    }
+    // Initial setups for mask reveal effect
+    // We start from y: 100% (below) with skew and blur
+    const initialConfig = {
+      y: "110%",
+      opacity: 0,
+      rotateX: -20,
+      filter: "blur(10px)",
+      transformOrigin: "left top"
+    };
 
-    // Animation des paragraphes de la première section
-    paragraphsRef.current.slice(0, 2).forEach((paragraph, index) => {
-      if (paragraph) {
-        gsap.set(paragraph, { opacity: 0, y: 20 });
-        tl.to(paragraph, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out"
-        }, 0.5 + index * 0.1);
-      }
+    if (titleLine1Ref.current) gsap.set(titleLine1Ref.current, initialConfig);
+    if (titleLine2Ref.current) gsap.set(titleLine2Ref.current, initialConfig);
+    if (textLine1Ref.current) gsap.set(textLine1Ref.current, { ...initialConfig, y: "150%" });
+    if (textLine2Ref.current) gsap.set(textLine2Ref.current, { ...initialConfig, y: "150%" });
+
+    // Footer is simple fade up
+    if (footerRef.current) gsap.set(footerRef.current, { y: 20, opacity: 0 });
+
+    // 1. Title Animation
+    tl.to([titleLine1Ref.current, titleLine2Ref.current], {
+      y: "0%",
+      opacity: 1,
+      rotateX: 0,
+      filter: "blur(0px)",
+      duration: 1.2,
+      stagger: 0.15,
+      ease: "power4.out"
     });
 
-    // Animation du deuxième titre
-    if (title2Ref.current) {
-      gsap.set(title2Ref.current, { opacity: 0, y: -20 });
-      tl.to(title2Ref.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      }, 1.2);
-    }
+    // 2. Text Animation
+    tl.to([textLine1Ref.current, textLine2Ref.current], {
+      y: "0%",
+      opacity: 1,
+      rotateX: 0,
+      filter: "blur(0px)",
+      duration: 1.2,
+      stagger: 0.1,
+      ease: "power3.out"
+    }, "-=0.8");
 
-    // Animation des paragraphes de la deuxième section
-    paragraphsRef.current.slice(2, 4).forEach((paragraph, index) => {
-      if (paragraph) {
-        gsap.set(paragraph, { opacity: 0, y: 20 });
-        tl.to(paragraph, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out"
-        }, 1.5 + index * 0.1);
-      }
-    });
+    // 3. Footer Animation
+    if (footerRef.current) {
+      tl.to(footerRef.current, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out"
+      }, "-=0.8");
+    }
 
   }, [isVisible]);
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-25 flex items-start justify-start bg-transparent overflow-y-auto">
-      <div ref={containerRef} className="relative w-full max-w-5xl mx-64 pt-50  pb-32">
-        
-        {/* Section 1: UN COLLECTIF CRÉATIF */}
-        <div className="mb-20">
-          <h1 
-            ref={title1Ref}
-            className="text-[40px] font-bold text-white uppercase mb-4"
-            style={{ fontFamily: 'DrukWideBold, sans-serif' }}
-          >
-            UN COLLECTIF CRÉATIF
-          </h1>
-          
-          <div className="space-y-4">
-            <div 
-              ref={el => { paragraphsRef.current[0] = el as HTMLDivElement; }}
-              className="w-[75%]"
+    <div className="fixed inset-0 z-25 flex flex-col items-center justify-center">
+      <div
+        ref={containerRef}
+        className="relative w-full max-w-[90vw] lg:max-w-6xl mx-auto px-4 lg:px-0 flex flex-col items-center justify-center h-full gap-8 lg:gap-16 pt-10"
+      >
+
+        {/* Main Title - Wrapped in overflow-hidden for mask effect */}
+        <div className="flex flex-col items-center justify-center pointer-events-none">
+          {/* Line 1 */}
+          <div className="overflow-hidden py-2">
+            <h1
+              ref={titleLine1Ref}
+              className="text-4xl md:text-6xl lg:text-[100px] leading-[0.9] font-bold text-center text-white uppercase tracking-tighter mix-blend-difference"
+              style={{ fontFamily: 'DrukWideBold, sans-serif' }}
             >
-              <p 
-                className="text-white text-[16px] leading-relaxed"
-                style={{ fontFamily: 'Satoshi, sans-serif' }}
-              >
-                Le BMS DNA est né des cendres du regretté @HasJoelstreamed qui avait créé le Vendredi des Artistes de la communauté BMS: chaque vendredi, toutes celles et ceux ayant un talent particulier pouvaient le mettre en avant. C&apos;est ainsi que @idamah et @Jojolepaga, dont vous avez déjà pu voir les travaux, se sont révélés. Idamah a alors proposé, avec l&apos;aide de @Yannis_dev, @yacinetha et @super8_studiio, à @Imaginary_Flame cette idée de collectif.
-              </p>
-            </div>
-            
-            <div 
-              ref={el => { paragraphsRef.current[1] = el as HTMLDivElement; }}
-              className="w-[75%]"
+              BMS DNA
+            </h1>
+          </div>
+
+          {/* Line 2 - Needs slightly more height for stroke artifacts */}
+          <div className="overflow-hidden py-2 px-4 -mt-2 lg:-mt-4">
+            <span
+              ref={titleLine2Ref}
+              className="block text-4xl md:text-6xl lg:text-[100px] leading-[0.9] font-bold text-center text-transparent stroke-white uppercase tracking-tighter"
+              style={{ fontFamily: 'DrukWideBold, sans-serif', WebkitTextStroke: '1px white' }}
             >
-              <p 
-                className="text-white text-[16px] leading-relaxed"
-                style={{ fontFamily: 'Satoshi, sans-serif' }}
-              >
-                Nous avons pour objectif de révéler et rassembler les personnes créatives issues de la communauté BMS et d&apos;internet en général. Que vous soyez artiste, créateurs, penseurs ou bâtisseurs prêts à transformers vos passions en projets concrets et à inspirer les autres à en faire autant.
-              </p>
-            </div>
+              COLLECTIF CRÉATIF
+            </span>
           </div>
         </div>
 
-        {/* Section 2: LE PROJET */}
-        <div>
-          <h2 
-            ref={title2Ref}
-            className="text-5xl font-bold text-white uppercase mb-8"
-            style={{ fontFamily: 'DrukWideBold, sans-serif' }}
-          >
-            LE PROJET
-          </h2>
-          
-          <div className="space-y-6">
-            <div 
-              ref={el => { paragraphsRef.current[2] = el as HTMLDivElement; }}
-              className="w-full"
+        {/* Central Text Block */}
+        <div className="flex flex-col gap-1 items-center text-center max-w-2xl lg:max-w-4xl">
+          <div className="overflow-hidden py-1">
+            <p
+              ref={textLine1Ref}
+              className="text-white text-sm md:text-lg lg:text-xl font-light uppercase tracking-widest"
+              style={{ fontFamily: 'Satoshi, sans-serif' }}
             >
-              <p 
-                className="text-white text-lg leading-relaxed"
-                style={{ fontFamily: 'Satoshi, sans-serif' }}
-              >
-                Une agence de talents, une association, un studio créatif, affiliée à BMS où tout un chacun peut offrir ses services. Que ce soit de la rédaction d&apos;articles, du montage, du graphisme, de la musique, de l&apos;événementiel... L&apos;objectif sera de vous permettre de mettre votre savoir-faire en valeur à travers divers projets en collaborations avec d&apos;autres membres du collectif.
-              </p>
-            </div>
-            
-            <div 
-              ref={el => { paragraphsRef.current[3] = el as HTMLDivElement; }}
-              className="w-full"
-            >
-              <p 
-                className="text-white text-lg leading-relaxed"
-                style={{ fontFamily: 'Satoshi, sans-serif' }}
-              >
-                Bien évidemment, faire partie de cette communauté n&apos;oblige en rien à participer aux projets, c&apos;est pourquoi, contrairement à d&apos;autres agences/plateformes, nous vous offrons la possibilité de faire valoir vos propres projets créatifs sans contrepartie ! Votre promotion sera faites sur tous nos réseaux ainsi qu&apos;à travers ce site web et une newsteller (une sélection hebdomadaire des meilleurs projets sera faites)
-              </p>
-            </div>
+              Né de l'envie de transformer nos passions en projets concrets.
+            </p>
           </div>
+
+          <div className="overflow-hidden py-1">
+            <p
+              ref={textLine2Ref}
+              className="text-white text-sm md:text-lg lg:text-xl font-light uppercase tracking-widest"
+              style={{ fontFamily: 'Satoshi, sans-serif' }}
+            >
+              Un espace pour les artistes, designers et musiciens<br className="hidden lg:block" /> qui veulent créer, partager et évoluer ensemble.
+            </p>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div
+          ref={footerRef}
+          className="absolute bottom-12 left-0 w-full flex justify-between px-6 lg:px-12 pointer-events-none"
+        >
+          <p className="hidden lg:block text-xs text-white/60 tracking-[0.2em] font-light uppercase border-t border-white/20 pt-4" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+            2026 — BMS DNA
+          </p>
+          <p className="w-full lg:w-auto text-center lg:text-right text-xs text-white tracking-[0.2em] font-bold uppercase border-t border-white/20 pt-4" style={{ fontFamily: 'DrukWideBold, sans-serif' }}>
+            STUDIO CRÉATIF & PLATEFORME DE TALENTS
+          </p>
         </div>
 
       </div>
     </div>
   );
 }
-

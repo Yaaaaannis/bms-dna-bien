@@ -2,14 +2,27 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Background from "../components/Background";
+import { usePathname } from 'next/navigation';
 import Loader from "../components/Loader";
+import { useBackground } from "../contexts/BackgroundContext";
 
 export default function WaitlistPage() {
+  const pathname = usePathname();
+  const { setBackgroundState } = useBackground();
   const [isLoading, setIsLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
+
+  // Mettre à jour l'état du background pour cette page
+  useEffect(() => {
+    setBackgroundState({
+      isServiceVisible: false,
+      isCollectifVisible: false,
+      isProjetsVisible: false,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
@@ -45,13 +58,6 @@ export default function WaitlistPage() {
 
   return (
     <main className="relative h-screen overflow-hidden bg-black text-white">
-      {/* Background 3D sans points */}
-      <Background 
-        servicePoints={[]} 
-        isServiceVisible={false} 
-        isCollectifVisible={false} 
-        isProjetsVisible={false} 
-      />
       {isLoading && (
         <div className="fixed inset-0 z-50">
           <Loader onComplete={() => setIsLoading(false)} />

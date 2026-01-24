@@ -70,7 +70,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
   const handlePreviousImage = () => {
     if (isTransitioning || currentGalleryIndex === 0) return;
     setIsTransitioning(true);
-    
+
     // Animation de sortie
     if (imageContainerRef.current && linksContainerRef.current) {
       gsap.to([imageContainerRef.current, linksContainerRef.current], {
@@ -83,7 +83,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           setCurrentGalleryIndex(newIndex);
           setDisplayedImage(displayImages[newIndex] || project?.image || '');
           // Animation d'entrée
-          gsap.fromTo([imageContainerRef.current, linksContainerRef.current], 
+          gsap.fromTo([imageContainerRef.current, linksContainerRef.current],
             { opacity: 0, x: -50 },
             {
               opacity: 1,
@@ -101,7 +101,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
   const handleNextImage = () => {
     if (isTransitioning || currentGalleryIndex === totalImages - 1) return;
     setIsTransitioning(true);
-    
+
     // Animation de sortie
     if (imageContainerRef.current && linksContainerRef.current) {
       gsap.to([imageContainerRef.current, linksContainerRef.current], {
@@ -132,7 +132,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
   // Reset l'index de la galerie quand on change de projet avec animation smooth
   useEffect(() => {
     if (!project) return;
-    
+
     // Calculer la première image du nouveau projet
     const newProjectImages = project.galleryImages || [];
     const hasNewGalleryImages = newProjectImages.length > 0;
@@ -141,7 +141,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
     if (imageContainerRef.current && firstImage) {
       setIsTransitioning(true);
-      
+
       // Timeline pour une animation fluide et coordonnée
       const tl = gsap.timeline({
         onComplete: () => {
@@ -162,20 +162,20 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           setDisplayedImage(firstImage);
         }
       })
-      // Phase 2: Reset position et préparation pour l'entrée (l'image a déjà changé)
-      .set([imageContainerRef.current, linksContainerRef.current], {
-        y: 20,
-        scale: 0.98,
-        opacity: 0
-      })
-      // Phase 3: Fade in doux avec translation vers le centre (image et liens)
-      .to([imageContainerRef.current, linksContainerRef.current], {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.5,
-        ease: "power2.inOut"
-      });
+        // Phase 2: Reset position et préparation pour l'entrée (l'image a déjà changé)
+        .set([imageContainerRef.current, linksContainerRef.current], {
+          y: 20,
+          scale: 0.98,
+          opacity: 0
+        })
+        // Phase 3: Fade in doux avec translation vers le centre (image et liens)
+        .to([imageContainerRef.current, linksContainerRef.current], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.inOut"
+        });
     } else {
       setCurrentGalleryIndex(0);
       if (firstImage) {
@@ -261,22 +261,22 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
             <div className="absolute top-0 left-[10%]">
               <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>POSTÉ / {date}</p>
               <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}  >PROJET / {name}</p>
-          
-                {categories.length > 0 && (
-                  <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
-                    {categories.length === 1 ? 'CATEGORY' : 'CATEGORIES'} / {categories.map((category: string, index: number) => {
-                      const categoryInfo = SANITY_CATEGORIES.find(cat => cat.value === category);
-                      const categoryTitle = categoryInfo?.title || category;
-                      return (
-                        <span key={index}>
-                          {categoryTitle}
-                          {index < categories.length - 1 && <span className="mx-2">/</span>}
-                        </span>
-                      );
-                    })}
-                  </p>
-                )}
-                
+
+              {categories.length > 0 && (
+                <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+                  {categories.length === 1 ? 'CATEGORY' : 'CATEGORIES'} / {categories.map((category: string, index: number) => {
+                    const categoryInfo = SANITY_CATEGORIES.find(cat => cat.value === category);
+                    const categoryTitle = categoryInfo?.title || category;
+                    return (
+                      <span key={index}>
+                        {categoryTitle}
+                        {index < categories.length - 1 && <span className="mx-2">/</span>}
+                      </span>
+                    );
+                  })}
+                </p>
+              )}
+
             </div>
             {/* Bloc bas collé - texte seulement */}
             <div className="absolute bottom-0 left-[10%]">
@@ -307,7 +307,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
             )}
           </div>
         </div>
-        
+
         {/* Liens cliquables - en dehors de tous les conteneurs overlay */}
         <div ref={linksContainerRef} className="absolute bottom-0 left-[10%] z-[200]" style={{ fontFamily: 'Satoshi, sans-serif' }}>
           {website && (
@@ -324,7 +324,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
             </p>
           )}
           {creators.length > 0 && (
-            <p className="text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+            <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
               BY / {creators.map((creator, index) => (
                 <span key={index}>
                   {creator.twitter ? (
@@ -388,9 +388,9 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
                 onClick={() => {
                   if (isTransitioning || index === currentGalleryIndex) return;
                   setIsTransitioning(true);
-                  
+
                   const direction = index > currentGalleryIndex ? 'next' : 'prev';
-                  
+
                   if (imageContainerRef.current) {
                     gsap.to(imageContainerRef.current, {
                       opacity: 0,
