@@ -116,7 +116,7 @@ export default function Presentation({ isVisible }: PresentationProps) {
               className="text-white text-sm md:text-lg lg:text-xl font-light uppercase tracking-widest"
               style={{ fontFamily: 'Satoshi, sans-serif' }}
             >
-              Né de l'envie de transformer nos passions en projets concrets.
+              Né de l&apos;envie de transformer nos passions en projets concrets.
             </p>
           </div>
 

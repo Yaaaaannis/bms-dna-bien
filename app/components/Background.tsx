@@ -15,26 +15,26 @@ interface BackgroundProps {
   isProjetsVisible: boolean;
 }
 
-export default function Background({ servicePoints, isServiceVisible: _isServiceVisible, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
+export default function Background({ servicePoints, isCollectifVisible, isProjetsVisible }: BackgroundProps) {
   const meshRef = useRef<Group>(null);
   const [connectionPoints, setConnectionPoints] = useState<Vector3[]>([]);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   // Objets de données animables par GSAP
   const modelDataRef = useRef({
     position: { x: 4.240, y: -1.055, z: 2.439 },
     rotation: { x: -56.7 * Math.PI / 180, y: -122.4 * Math.PI / 180, z: 12.0 * Math.PI / 180 },
     scale: { x: 0.701, y: 0.700, z: 0.752 }
   });
-  
+
   // États pour déclencher les re-renders
   const [, forceUpdate] = useState({});
-  
+
 
   const handleConnectionPointsUpdate = useCallback((points: Vector3[]) => {
     setConnectionPoints(points);
   }, []);
-  
+
   // Fonction d'animation GSAP pour les transitions fluides
   const animateModelTransition = useCallback((isCollectif: boolean, mobile: boolean) => {
     // Légers offsets sur mobile pour pousser le modèle plus à gauche
@@ -42,14 +42,14 @@ export default function Background({ servicePoints, isServiceVisible: _isService
     const mobileOffsetY = mobile ? -2.0 : 0.0;
     const mobileOffsetZ = mobile ? 2.0 : 0.0;
 
-    const targetPosition = isCollectif 
+    const targetPosition = isCollectif
       ? { x: -12.134 + mobileOffsetX, y: -7.069 + mobileOffsetY, z: 9.093 + mobileOffsetZ }
       : { x: 4.240 + mobileOffsetX, y: -1.055 + mobileOffsetY, z: 2.439 + mobileOffsetZ };
-    
+
     const targetRotation = isCollectif
       ? { x: 2.671, y: -0.353, z: -1.861 }  // Rotation pour Collectif
       : { x: -56.7 * Math.PI / 180, y: -122.4 * Math.PI / 180, z: 12.0 * Math.PI / 180 };  // Rotation par défaut
-    
+
     const targetScale = isCollectif
       ? { x: 0.701, y: 0.358, z: 0.752 }  // Échelle pour Collectif
       : { x: 0.701, y: 0.700, z: 0.752 };  // Échelle par défaut
@@ -68,22 +68,22 @@ export default function Background({ servicePoints, isServiceVisible: _isService
         forceUpdate({});
       }
     })
-    .to(modelDataRef.current.rotation, {
-      duration: 1.2,
-      ease: "power2.inOut", 
-      ...targetRotation,
-      onUpdate: () => {
-        forceUpdate({});
-      }
-    }, 0) // Commence en même temps que la position
-    .to(modelDataRef.current.scale, {
-      duration: 1.2,
-      ease: "power2.inOut",
-      ...targetScale,
-      onUpdate: () => {
-        forceUpdate({});
-      }
-    }, 0); // Commence en même temps que la position
+      .to(modelDataRef.current.rotation, {
+        duration: 1.2,
+        ease: "power2.inOut",
+        ...targetRotation,
+        onUpdate: () => {
+          forceUpdate({});
+        }
+      }, 0) // Commence en même temps que la position
+      .to(modelDataRef.current.scale, {
+        duration: 1.2,
+        ease: "power2.inOut",
+        ...targetScale,
+        onUpdate: () => {
+          forceUpdate({});
+        }
+      }, 0); // Commence en même temps que la position
   }, []);
 
   // Détecter le mobile et mettre à jour à la volée
@@ -110,7 +110,7 @@ export default function Background({ servicePoints, isServiceVisible: _isService
     <div className="fixed inset-0 w-full h-full">
       <Canvas
         camera={{ position: [1, 5, 2], fov: 75 }}
-        style={{ 
+        style={{
           background: 'black',
           width: '100%',
           height: '100%',
@@ -122,15 +122,15 @@ export default function Background({ servicePoints, isServiceVisible: _isService
         }}
       >
         <ambientLight intensity={0.2} />
-        <directionalLight 
-          position={[5, -3, 2]} 
-          intensity={1.2} 
+        <directionalLight
+          position={[5, -3, 2]}
+          intensity={1.2}
           target-position={[2.885, 0, 2.439]}
           castShadow
         />
         <pointLight position={[3, -2, 1]} intensity={0.5} color="#ffffff" />
-        
-        <Model 
+
+        <Model
           ref={meshRef}
           position={[modelDataRef.current.position.x, modelDataRef.current.position.y, modelDataRef.current.position.z]}
           scale={[modelDataRef.current.scale.x, modelDataRef.current.scale.y, modelDataRef.current.scale.z]}
@@ -138,21 +138,21 @@ export default function Background({ servicePoints, isServiceVisible: _isService
           isAnimated={true}
           onConnectionPointsUpdate={handleConnectionPointsUpdate}
         />
-        
+
         {/* Points 3D correspondant aux services - retirés */}
-        
+
         {/* Système de connexions 3D */}
         <Connections3D
           connectionPoints={connectionPoints}
           servicePoints={servicePoints}
           isVisible={isProjetsVisible}
         />
-        
-        
+
+
         <Environment preset="night" />
       </Canvas>
-      
-      
+
+
     </div>
   );
 }
