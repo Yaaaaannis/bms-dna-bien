@@ -1,4 +1,4 @@
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import type { SanityImageSource } from "@sanity/image-url";
 
 // Type pour les assets d'image Sanity
 export interface SanityImageAsset {
