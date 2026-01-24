@@ -1,37 +1,19 @@
-"use client";
+import { Metadata } from "next";
+import AboutClient from "../components/AboutClient";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Header from "../components/Header";
-import Presentation from "../components/Presentation";
-import { useBackground } from "../contexts/BackgroundContext";
+export const metadata: Metadata = {
+  title: "À Propos du Collectif | BMS DNA",
+  description: "BMS DNA : Né de l'envie de transformer nos passions en projets concrets. Un espace pour les artistes, designers et musiciens.",
+  openGraph: {
+    title: "À Propos du Collectif | BMS DNA",
+    description: "Notre histoire et notre vision.",
+    url: "https://www.dna-bms.com/a-propos",
+    images: [
+      { url: "/images/logo.jpg", width: 1200, height: 630, alt: "BMS DNA About" },
+    ],
+  },
+};
 
 export default function AProposPage() {
-  const pathname = usePathname();
-  const { setBackgroundState } = useBackground();
-
-  // Mettre à jour l'état du background pour cette page
-  useEffect(() => {
-    setBackgroundState({
-      isServiceVisible: false,
-      isCollectifVisible: false,
-      isProjetsVisible: false,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
-  return (
-    <div className="relative min-h-screen">
-      {/* Header avec logo et navigation */}
-      <Header
-        currentPath={pathname}
-      />
-
-      {/* Présentation */}
-      <Presentation
-        isVisible={true}
-        onReturn={() => {}}
-      />
-    </div>
-  );
+  return <AboutClient />;
 }

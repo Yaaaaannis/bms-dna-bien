@@ -1,37 +1,19 @@
-"use client";
+import { Metadata } from "next";
+import ContactClient from "../components/ContactClient";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Header from "../components/Header";
-import Contact from "../components/Contact";
-import { useBackground } from "../contexts/BackgroundContext";
+export const metadata: Metadata = {
+  title: "Contactez-nous | BMS DNA",
+  description: "Vous avez un projet ? Contactez le collectif BMS DNA pour discuter de vos besoins créatifs et techniques.",
+  openGraph: {
+    title: "Contactez-nous | BMS DNA",
+    description: "Parlons de votre prochain projet.",
+    url: "https://www.dna-bms.com/contact",
+    images: [
+      { url: "/images/logo.jpg", width: 1200, height: 630, alt: "BMS DNA Contact" },
+    ],
+  },
+};
 
 export default function ContactPage() {
-  const pathname = usePathname();
-  const { setBackgroundState } = useBackground();
-
-  // Mettre à jour l'état du background pour cette page
-  useEffect(() => {
-    setBackgroundState({
-      isServiceVisible: false,
-      isCollectifVisible: false,
-      isProjetsVisible: false,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
-  return (
-    <div className="relative min-h-screen">
-      {/* Header avec logo et navigation */}
-      <Header
-        currentPath={pathname}
-      />
-
-      {/* Contact */}
-      <Contact
-        isVisible={true}
-        onReturn={() => {}}
-      />
-    </div>
-  );
+  return <ContactClient />;
 }

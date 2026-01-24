@@ -1,63 +1,21 @@
-"use client";
+import { Metadata } from "next";
+import HomeClient from "./components/HomeClient";
 
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Loader from "./components/Loader";
-import Header from "./components/Header";
-import Presentation from "./components/Presentation";
-import { useBackground } from "./contexts/BackgroundContext";
+export const metadata: Metadata = {
+  title: "BMS DNA - Studio Créatif & Plateforme de Talents à Paris",
+  description: "BMS DNA est un collectif créatif parisien regroupant designers, vidéastes, artistes 3D et développeurs web. Nous transformons vos projets en expériences digitales uniques.",
+  openGraph: {
+    title: "BMS DNA - Studio Créatif & Plateforme de Talents",
+    description: "Designers, vidéastes, artistes 3D et développeurs web unis pour créer des expériences uniques.",
+    url: "https://www.dna-bms.com/",
+    siteName: "BMS DNA",
+    images: [
+      { url: "/images/logo.jpg", width: 1200, height: 630, alt: "BMS DNA" },
+    ],
+    type: "website",
+  },
+};
 
 export default function Home() {
-  const pathname = usePathname();
-  const { setBackgroundState } = useBackground();
-
-  // Vérifier si le loader a déjà été affiché dans cette session
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window === 'undefined') return true;
-    return !sessionStorage.getItem('bms-dna-loader-shown');
-  });
-
-  // Mettre à jour l'état du background pour cette page
-  useEffect(() => {
-    setBackgroundState({
-      isServiceVisible: false,
-      isCollectifVisible: false,
-      isProjetsVisible: false,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
-  useEffect(() => {
-    if (isLoading) {
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-        // Marquer que le loader a été affiché dans cette session
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem('bms-dna-loader-shown', 'true');
-        }
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isLoading]);
-
-  return (
-    <div className="relative min-h-screen">
-      {isLoading && (
-        <div className="fixed inset-0 z-50">
-          <Loader onComplete={() => setIsLoading(false)} />
-        </div>
-      )}
-
-      {/* Header avec logo et navigation */}
-      <Header
-        currentPath={pathname}
-      />
-
-      {/* Présentation (Intro) */}
-      <Presentation
-        isVisible={!isLoading}
-      />
-    </div>
-  );
+  return <HomeClient />;
 }

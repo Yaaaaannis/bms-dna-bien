@@ -1,37 +1,19 @@
-"use client";
+import { Metadata } from "next";
+import EquipeClient from "../components/EquipeClient";
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Header from "../components/Header";
-import Collectif from "../components/Collectif";
-import { useBackground } from "../contexts/BackgroundContext";
+export const metadata: Metadata = {
+  title: "L'Équipe DNA | BMS DNA",
+  description: "Rencontrez les talents du collectif BMS DNA : une équipe passionnée de créatifs, développeurs et artistes prêts à relever tous les défis.",
+  openGraph: {
+    title: "L'Équipe DNA | BMS DNA",
+    description: "Rencontrez nos talents créatifs.",
+    url: "https://www.dna-bms.com/equipe",
+    images: [
+      { url: "/images/logo.jpg", width: 1200, height: 630, alt: "BMS DNA Team" },
+    ],
+  },
+};
 
 export default function EquipePage() {
-  const pathname = usePathname();
-  const { setBackgroundState } = useBackground();
-
-  // Mettre à jour l'état du background pour cette page
-  useEffect(() => {
-    setBackgroundState({
-      isServiceVisible: false,
-      isCollectifVisible: true,
-      isProjetsVisible: false,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
-  return (
-    <div className="relative min-h-screen">
-      {/* Header avec logo et navigation */}
-      <Header
-        currentPath={pathname}
-      />
-
-      {/* Collectif */}
-      <Collectif
-        isVisible={true}
-        onReturn={() => {}}
-      />
-    </div>
-  );
+  return <EquipeClient />;
 }
