@@ -64,7 +64,7 @@ export default function Collectif({ isVisible }: CollectifProps) {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-25 flex items-center bg-black/90">
+    <div className="fixed inset-0 z-25 flex items-center ">
       <div ref={containerRef} className="relative w-full h-full max-w-7xl mx-auto px-16 flex flex-row items-center justify-between">
 
         {/* Contenu gauche */}

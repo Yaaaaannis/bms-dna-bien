@@ -186,7 +186,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                 {/* Column 3: GIF / Vertical Graphic (1/3) - Hidden on Mobile */}
                 <div className="hidden lg:flex w-1/3 h-full border border-white relative overflow-hidden flex-col items-center justify-center bg-black/50">
                     <Image
-                        src="/images/adn.gif"
+                        src="/images/dna-gif.gif"
                         alt="DNA Animation"
                         fill
                         className="object-cover"
