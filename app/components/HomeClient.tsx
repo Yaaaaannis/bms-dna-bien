@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Loader from "./Loader";
 import Header from "./Header";
-import Presentation from "./Presentation";
 import { useBackground } from "../contexts/BackgroundContext";
 
 export default function HomeClient() {
@@ -52,11 +51,6 @@ export default function HomeClient() {
             {/* Header avec logo et navigation */}
             <Header
                 currentPath={pathname}
-            />
-
-            {/* Présentation (Intro) */}
-            <Presentation
-                isVisible={!isLoading}
             />
         </div>
     );
