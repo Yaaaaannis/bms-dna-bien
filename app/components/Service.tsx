@@ -58,14 +58,14 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
   const filters = useMemo(() => {
     // Commencer par "ALL"
     const filterList = ['ALL'];
-    
+
     // Ajouter toutes les catégories définies dans Sanity (par valeur pour l'affichage)
     const categoryValues = SANITY_CATEGORIES.map(cat => cat.value);
     filterList.push(...categoryValues);
-    
+
     console.log('Filters generated:', filterList);
     console.log('SANITY_CATEGORIES:', SANITY_CATEGORIES);
-    
+
     return filterList;
   }, []);
 
@@ -117,9 +117,9 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
   // Filtrer les projets selon le filtre sélectionné
   const filteredProjects = useMemo(() => {
     if (selectedFilter === 'ALL') return projects;
-    
+
     // Vérifier si le projet a la catégorie sélectionnée dans son array de catégories
-    return projects.filter(project => 
+    return projects.filter(project =>
       project.categories?.includes(selectedFilter) || project.category === selectedFilter
     );
   }, [projects, selectedFilter]);
@@ -186,9 +186,10 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
     }
   }, [isVisible]);
 
-  // Animation lors de l'affichage
+  // Animation lors de l'affichage - se déclenche après le chargement des projets
   useEffect(() => {
-    if (!isVisible || !servicesRef.current || !galleryRef.current || !filtersRef.current || !containerRef.current) return;
+    // Attendre que les projets soient chargés avant d'animer
+    if (!isVisible || isLoading || !servicesRef.current || !galleryRef.current || !filtersRef.current || !containerRef.current) return;
 
     const tl = gsap.timeline({ delay: 0.3 });
 
@@ -202,20 +203,40 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
       ease: "power2.out"
     });
 
-    // Initialiser les éléments (galerie cachée au départ, apparaît au scroll)
+    // Initialiser les éléments de la galerie comme VISIBLES par défaut
+    // La galerie apparaît immédiatement avec une animation progressive
     setTimeout(() => {
       if (filtersRef.current && galleryRef.current) {
-        console.log('Initializing filters with GSAP, filtersRef.current:', filtersRef.current);
-        gsap.set(filtersRef.current, { opacity: 0, y: -20 });
-        // Les images commencent invisibles et apparaîtront au scroll
+        console.log('Initializing filters and gallery as visible');
+        // Commencer avec les filtres et la galerie visibles
+        gsap.set(filtersRef.current, { opacity: 1, y: 0 });
         const galleryItems = galleryRef.current.querySelectorAll('.group');
+        console.log('Gallery items found:', galleryItems.length);
         if (galleryItems.length > 0) {
-          gsap.set(galleryItems, { opacity: 0, scale: 0.8 });
+          // Animer l'apparition progressive des items de la galerie de manière aléatoire
+          // Toutes les cases commencent cachées et floues
+          gsap.set(galleryItems, { opacity: 0, scale: 0.9, filter: "blur(20px)" });
+
+          // Créer un tableau d'indices et le mélanger pour un ordre aléatoire
+          const indices = Array.from({ length: galleryItems.length }, (_, i) => i);
+          const shuffledIndices = indices.sort(() => Math.random() - 0.5);
+
+          // Animer chaque item dans un ordre aléatoire
+          shuffledIndices.forEach((index, position) => {
+            gsap.to(galleryItems[index], {
+              opacity: 1,
+              scale: 1,
+              filter: "blur(0px)", // De flou à net
+              duration: 1.0,
+              delay: 1.5 + (position * 0.08), // Délai progressif basé sur la position dans l'ordre aléatoire
+              ease: "power2.out"
+            });
+          });
         }
       }
     }, 100);
 
-  }, [isVisible]);
+  }, [isVisible, isLoading]); // Ajouter isLoading comme dépendance
 
   // Animation basée sur le scroll - transition entre services et galerie
   useEffect(() => {
@@ -358,20 +379,20 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
               {filters.map((filter) => {
                 console.log('Rendering filter button:', filter);
                 return (
-                <button
-                  key={filter}
-                  onClick={() => setSelectedFilter(filter)}
-                  className={`text-white text-sm uppercase tracking-wider transition-all duration-200 relative ${selectedFilter === filter
-                    ? 'text-white'
-                    : 'text-gray-400 hover:text-white'
-                    }`}
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                >
-                  {filter}
-                  {selectedFilter === filter && (
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white mt-1"></div>
-                  )}
-                </button>
+                  <button
+                    key={filter}
+                    onClick={() => setSelectedFilter(filter)}
+                    className={`text-white text-sm uppercase tracking-wider transition-all duration-200 relative ${selectedFilter === filter
+                      ? 'text-white'
+                      : 'text-gray-400 hover:text-white'
+                      }`}
+                    style={{ fontFamily: 'Satoshi, sans-serif' }}
+                  >
+                    {filter}
+                    {selectedFilter === filter && (
+                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white mt-1"></div>
+                    )}
+                  </button>
                 );
               })}
             </div>
@@ -419,7 +440,7 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
                   // Forcer certaines images à être carrées pour rendre la grille plus compacte
                   // 1. Forcer les images proches du carré (ratio entre 0.85 et 1.15) à rester carrées
                   // 2. Forcer une image sur 4 à être carrée même si elle pourrait être plus grande
-                  const forceSquare = 
+                  const forceSquare =
                     (aspectRatio >= 0.85 && aspectRatio <= 1.15) || // Proche du carré
                     (index % 4 === 0 && aspectRatio >= 0.75 && aspectRatio <= 1.4); // Une sur 4 dans une plage raisonnable
 

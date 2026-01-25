@@ -103,7 +103,7 @@ export default function Presentation({ isVisible }: PresentationProps) {
               className="block text-4xl md:text-6xl lg:text-[100px] leading-[0.9] font-bold text-center text-transparent stroke-white uppercase tracking-tighter"
               style={{ fontFamily: 'DrukWideBold, sans-serif', WebkitTextStroke: '1px white' }}
             >
-              COLLECTIF CRÉATIF
+              COLLECTIF CREATIF
             </span>
           </div>
         </div>

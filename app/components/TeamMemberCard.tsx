@@ -140,7 +140,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                         </div>
                         <div className="relative w-full mt-1 border border-white/30">
                             <Image
-                                src="/images/doigt.jpg"
+                                src="/images/doigt.webp"
                                 alt="Fingerprint"
                                 width={541}
                                 height={249}

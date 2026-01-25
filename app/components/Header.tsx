@@ -17,8 +17,11 @@ export default function Header({
   const isActive = (path: string) => activePath === path;
 
   return (
-    <header className="fixed top-0 left-0 z-40 p-8 transition-opacity duration-300 opacity-100">
-      <div className="flex items-start space-x-40">
+    <header className="fixed top-0 left-0 z-40 p-8 transition-opacity duration-300 opacity-100 w-full">
+      {/* Fond noir solide pour masquer complètement le contenu qui passe derrière */}
+      <div className="absolute inset-0 bg-black pointer-events-none" style={{ height: '200px', width: '50%' }}></div>
+
+      <div className="flex items-start space-x-40 relative z-10">
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
@@ -36,8 +39,8 @@ export default function Header({
           <Link
             href="/a-propos"
             className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/a-propos')
-                ? 'text-gray-300'
-                : 'text-white hover:text-gray-300'
+              ? 'text-gray-300'
+              : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
@@ -49,8 +52,8 @@ export default function Header({
           <Link
             href="/services"
             className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/services')
-                ? 'text-gray-300'
-                : 'text-white hover:text-gray-300'
+              ? 'text-gray-300'
+              : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
@@ -62,8 +65,8 @@ export default function Header({
           <Link
             href="/equipe"
             className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/equipe')
-                ? 'text-gray-300'
-                : 'text-white hover:text-gray-300'
+              ? 'text-gray-300'
+              : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >
@@ -75,8 +78,8 @@ export default function Header({
           <Link
             href="/contact"
             className={`text-lg uppercase tracking-wider transition-all duration-200 relative text-left ${isActive('/contact')
-                ? 'text-gray-300'
-                : 'text-white hover:text-gray-300'
+              ? 'text-gray-300'
+              : 'text-white hover:text-gray-300'
               }`}
             style={{ fontFamily: 'Satoshi, sans-serif' }}
           >

@@ -82,17 +82,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           const newIndex = currentGalleryIndex - 1;
           setCurrentGalleryIndex(newIndex);
           setDisplayedImage(displayImages[newIndex] || project?.image || '');
-          // Animation d'entrée
-          gsap.fromTo([imageContainerRef.current, linksContainerRef.current],
-            { opacity: 0, x: -50 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 0.3,
-              ease: "power2.out",
-              onComplete: () => setIsTransitioning(false)
-            }
-          );
+          // L'animation d'entrée sera déclenchée par onLoadingComplete sur l'image
         }
       });
     }
@@ -113,20 +103,55 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           const newIndex = currentGalleryIndex + 1;
           setCurrentGalleryIndex(newIndex);
           setDisplayedImage(displayImages[newIndex] || project?.image || '');
-          // Animation d'entrée
-          gsap.fromTo([imageContainerRef.current, linksContainerRef.current],
-            { opacity: 0, x: 50 },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 0.3,
-              ease: "power2.out",
-              onComplete: () => setIsTransitioning(false)
-            }
-          );
+          // L'animation d'entrée sera déclenchée par onLoadingComplete sur l'image
         }
       });
     }
+  };
+
+  // Fonction pour animer l'entrée de la nouvelle image
+  const animateImageIn = () => {
+    if (imageContainerRef.current && linksContainerRef.current) {
+      // On s'assure d'abord que les éléments sont bien cachés et positionnés pour l'entrée
+      // Note: La position x de départ dépend de la direction (prev/next), 
+      // mais pour simplifier ici on peut réinitialiser ou garder la logique actuelle si on stockait la direction.
+      // Pour l'instant, faisons un simple fade-in propre, ou alors on garde le mouvement si possible.
+      // Comme on a découplé, on perd l'info de direction facilement accessible ici sans state supplémentaire.
+      // On va faire une entrée neutre ou basée sur une ref qui stockerait la direction si besoin, 
+      // mais un fade-in simple + reset x est souvent plus safe pour éviter les sauts.
+
+      // Pour garder la cohérence du mouvement (ex: vient de droite), on peut tenter de reset x à l'opposé de la sortie 
+      // MAIS c'est complexe sans state direction. Simplifions : on remet x à 0 avec un fromTo léger ou juste opacity.
+
+      // Cependant, l'utilisateur aimait le mouvement. Essayons de déduire ou simplifier.
+      // Si on veut juste régler le "loading", on peut laisser le x là où il a été mis par le `onComplete` du `to` ?
+      // Non, `to` a mis x à 50 ou -50.
+
+      // Approche : On va faire un fromTo générique qui fait un petit scale up ou un fade in propre.
+      // OU, on stocke la "nextAnimation" dans une ref ?
+
+      // Restons simple : Fade In + Scale léger pour donner vie.
+      gsap.fromTo([imageContainerRef.current, linksContainerRef.current],
+        { opacity: 0, scale: 0.98 },
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: 0.4,
+          ease: "power2.out",
+          onComplete: () => setIsTransitioning(false)
+        }
+      );
+    } else {
+      setIsTransitioning(false);
+    }
+  };
+
+  const handleMediaLoaded = () => {
+    // Cette fonction est appelée quand l'image/vidéo est chargée
+    // On lance l'animation d'entrée
+    animateImageIn();
   };
 
   // Reset l'index de la galerie quand on change de projet avec animation smooth
@@ -142,15 +167,8 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
     if (imageContainerRef.current && firstImage) {
       setIsTransitioning(true);
 
-      // Timeline pour une animation fluide et coordonnée
-      const tl = gsap.timeline({
-        onComplete: () => {
-          setIsTransitioning(false);
-        }
-      });
-
-      // Phase 1: Fade out doux avec légère translation verticale (image et liens)
-      tl.to([imageContainerRef.current, linksContainerRef.current], {
+      // Animation de sortie pour changement de projet
+      gsap.to([imageContainerRef.current, linksContainerRef.current], {
         opacity: 0,
         y: -20,
         scale: 0.98,
@@ -160,22 +178,9 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           // Changer l'image seulement après la sortie complète
           setCurrentGalleryIndex(0);
           setDisplayedImage(firstImage);
+          // L'animation d'entrée se fera via handleMediaLoaded
         }
-      })
-        // Phase 2: Reset position et préparation pour l'entrée (l'image a déjà changé)
-        .set([imageContainerRef.current, linksContainerRef.current], {
-          y: 20,
-          scale: 0.98,
-          opacity: 0
-        })
-        // Phase 3: Fade in doux avec translation vers le centre (image et liens)
-        .to([imageContainerRef.current, linksContainerRef.current], {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.5,
-          ease: "power2.inOut"
-        });
+      });
     } else {
       setCurrentGalleryIndex(0);
       if (firstImage) {
@@ -234,6 +239,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
         <div ref={imageContainerRef} className="relative w-full h-full overflow-hidden">
           {imageToDisplay && (currentIsVideo ? (
             <video
+              key={imageToDisplay} // Force remount on change
               ref={videoRef}
               src={imageToDisplay}
               autoPlay
@@ -242,14 +248,18 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
               playsInline
               className="w-full h-full object-cover"
               style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
+              onLoadedData={handleMediaLoaded}
             />
           ) : (
             <Image
+              key={imageToDisplay} // Force remount on change
               src={imageToDisplay}
               alt={name}
               fill
+              priority // High priority for loading
               className="object-cover"
               style={{ filter: 'grayscale(0.3) contrast(1.1)' }}
+              onLoad={handleMediaLoaded}
             />
           ))}
           {/* Overlay sombre semi-transparent pour améliorer la lisibilité du texte */}
@@ -278,25 +288,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
               )}
 
             </div>
-            {/* Bloc bas collé - texte seulement */}
-            <div className="absolute bottom-0 left-[10%]">
-              <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>ID / {projectId}</p>
-              {website && (
-                <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
-                  WEB / SITE
-                </p>
-              )}
-              {creators.length > 0 && (
-                <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
-                  BY / {creators.map((creator, index) => (
-                    <span key={index}>
-                      {creator.name}
-                      {index < creators.length - 1 && <span className="mx-2">/</span>}
-                    </span>
-                  ))}
-                </p>
-              )}
-            </div>
+
             {/* Index du projet dans le coin bas droit */}
             {currentIndex !== undefined && totalProjects !== undefined && (
               <div className="absolute bottom-[0%] right-[20px] text-white opacity-80" style={{ fontFamily: 'Satoshi, sans-serif' }}>
@@ -310,6 +302,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
         {/* Liens cliquables - en dehors de tous les conteneurs overlay */}
         <div ref={linksContainerRef} className="absolute bottom-0 left-[10%] z-[200]" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+          <p className="text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>ID / {projectId}</p>
           {website && (
             <p className="text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
               WEB / <a
@@ -324,7 +317,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
             </p>
           )}
           {creators.length > 0 && (
-            <p className="text-[10px] lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+            <p className=" lg:text-m leading-relaxed lg:leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
               BY / {creators.map((creator, index) => (
                 <span key={index}>
                   {creator.twitter ? (
@@ -400,16 +393,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
                       onComplete: () => {
                         setCurrentGalleryIndex(index);
                         setDisplayedImage(displayImages[index] || project.image);
-                        gsap.fromTo(imageContainerRef.current,
-                          { opacity: 0, x: direction === 'next' ? 50 : -50 },
-                          {
-                            opacity: 1,
-                            x: 0,
-                            duration: 0.3,
-                            ease: "power2.out",
-                            onComplete: () => setIsTransitioning(false)
-                          }
-                        );
+                        // Animation d'entrée triggered by onLoad
                       }
                     });
                   }
@@ -560,6 +544,31 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
       <div className="relative w-full h-full max-w-7xl mx-auto px-8">
         {/* Marqueur carré à droite du bandeau (optionnel, design) */}
         <div className="absolute top-[28%] left-[60%] w-12 h-12 border-2 border-white opacity-80"></div>
+      </div>
+
+      {/* Preload container: Render all other images in the gallery hidden to force browser cache */}
+      <div className="invisible fixed top-0 left-0 w-px h-px overflow-hidden -z-50" aria-hidden="true">
+        {displayImages.map((imgUrl, index) => {
+          // Skip current image as it is already rendered visibly
+          if (imgUrl === imageToDisplay) return null;
+
+          if (isVideo(imgUrl)) {
+            // For videos, we can try to preload metadata but full preload might be heavy
+            // Removing full preload for videos to save bandwidth unless explicitly requested
+            return null;
+          }
+
+          return (
+            <Image
+              key={`preload-${index}`}
+              src={imgUrl}
+              alt=""
+              width={100} // Values don't matter as it is hidden
+              height={100}
+              priority={true} // Forces immediate loading
+            />
+          );
+        })}
       </div>
     </div>
   );
