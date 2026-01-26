@@ -11,10 +11,15 @@ export default function HomeClient() {
     const { setBackgroundState } = useBackground();
 
     // Vérifier si le loader a déjà été affiché dans cette session
-    const [isLoading, setIsLoading] = useState(() => {
-        if (typeof window === 'undefined') return true;
-        return !sessionStorage.getItem('bms-dna-loader-shown');
-    });
+    // Vérifier si le loader a déjà été affiché dans cette session
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Si le loader a déjà été affiché, on ne l'affiche pas
+        if (typeof window !== 'undefined' && sessionStorage.getItem('bms-dna-loader-shown')) {
+            setIsLoading(false);
+        }
+    }, []);
 
     // Mettre à jour l'état du background pour cette page
     useEffect(() => {

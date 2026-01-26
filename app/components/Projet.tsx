@@ -222,20 +222,10 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
   return (
     <div className="fixed inset-0 z-30">
-      {/* Bouton de fermeture */}
-      {onClose && (
-        <button
-          onClick={onClose}
-          className="absolute top-8 right-8 z-40 text-white text-2xl font-bold hover:text-gray-300 transition-colors duration-200"
-          style={{ fontFamily: 'Satoshi, sans-serif' }}
-          aria-label="Fermer"
-        >
-          ×
-        </button>
-      )}
+
 
       {/* Bandeau image/vidéo collé à gauche, positionné par rapport au viewport */}
-      <div className="absolute top-[30%] left-0 w-[60%] h-[400px] relative">
+      <div className="absolute top-[30%] md:top-[30%] left-0 w-full md:w-[80%] lg:w-[60%] h-[300px] md:h-[400px] relative">
         <div ref={imageContainerRef} className="relative w-full h-full overflow-hidden">
           {imageToDisplay && (currentIsVideo ? (
             <video
@@ -268,12 +258,12 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
           {/* Overlay textes à gauche */}
           <div className="absolute inset-0 text-white" style={{ fontFamily: 'Satoshi, sans-serif' }}>
             {/* Bloc haut collé */}
-            <div className="absolute top-0 left-[10%]">
-              <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>POSTÉ / {date}</p>
-              <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}  >PROJET / {name}</p>
+            <div className="absolute top-0 left-4 md:left-[10%]">
+              <p className="text-sm md:text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>POSTÉ / {date}</p>
+              <p className="text-sm md:text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}  >PROJET / {name}</p>
 
               {categories.length > 0 && (
-                <p className="text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+                <p className="text-sm md:text-m leading-6 tracking-wide uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
                   {categories.length === 1 ? 'CATEGORY' : 'CATEGORIES'} / {categories.map((category: string, index: number) => {
                     const categoryInfo = SANITY_CATEGORIES.find(cat => cat.value === category);
                     const categoryTitle = categoryInfo?.title || category;
@@ -291,7 +281,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
             {/* Index du projet dans le coin bas droit */}
             {currentIndex !== undefined && totalProjects !== undefined && (
-              <div className="absolute bottom-[0%] right-[20px] text-white opacity-80" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+              <div className="absolute bottom-[0%] right-4 md:right-[20px] text-white opacity-80" style={{ fontFamily: 'Satoshi, sans-serif' }}>
                 <span className="text-sm tracking-wider uppercase" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
                   {String(currentIndex + 1).padStart(2, '0')} / {String(totalProjects).padStart(2, '0')}
                 </span>
@@ -301,10 +291,10 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
         </div>
 
         {/* Liens cliquables - en dehors de tous les conteneurs overlay */}
-        <div ref={linksContainerRef} className="absolute bottom-0 left-[10%] z-[200]" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-          <p className="text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>ID / {projectId}</p>
+        <div ref={linksContainerRef} className="absolute bottom-0 left-4 md:left-[10%] z-[200]" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+          <p className="text-sm md:text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>ID / {projectId}</p>
           {website && (
-            <p className="text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
+            <p className="text-sm md:text-m leading-6 tracking-wide uppercase text-white" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 4px rgba(0, 0, 0, 0.6)' }}>
               WEB / <a
                 href={website}
                 target="_blank"
@@ -343,7 +333,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
       {/* Carousel de navigation de la galerie - situé sous l'image */}
       {totalImages > 1 && (
-        <div className="absolute top-[calc(30%+400px-40px)] left-0 w-[60%] flex justify-center items-center gap-3 z-50">
+        <div className="absolute top-[calc(30%+300px+20px)] md:top-[calc(30%+400px-40px)] left-0 w-full md:w-[80%] lg:w-[60%] flex justify-center items-center gap-3 z-50">
           {/* Flèche gauche carousel */}
           <button
             onClick={(e) => {
@@ -445,7 +435,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
 
 
       {/* Bande blanche type "boussole" pour futur carousel - sortie du conteneur image */}
-      <div className="absolute top-[calc(30%+400px+20px)] left-0 w-[60%] flex justify-center items-center gap-4 z-50" style={{ perspective: '1000px' }}>
+      <div className="absolute top-[calc(30%+300px+60px)] md:top-[calc(30%+400px+20px)] left-0 w-full md:w-[80%] lg:w-[60%] flex justify-center items-center gap-4 z-50" style={{ perspective: '1000px' }}>
         {/* Flèche gauche */}
         <button
           onClick={(e) => {
@@ -543,7 +533,7 @@ export default function Projet({ isVisible, project, onClose, onPrevious, onNext
       {/* Calque UI centré pour éléments annexes */}
       <div className="relative w-full h-full max-w-7xl mx-auto px-8">
         {/* Marqueur carré à droite du bandeau (optionnel, design) */}
-        <div className="absolute top-[28%] left-[60%] w-12 h-12 border-2 border-white opacity-80"></div>
+        <div className="absolute top-[18%] md:top-[28%] right-4 md:left-[60%] w-8 h-8 md:w-12 md:h-12 border-2 border-white opacity-80"></div>
       </div>
 
       {/* Preload container: Render all other images in the gallery hidden to force browser cache */}

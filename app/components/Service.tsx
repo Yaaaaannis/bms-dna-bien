@@ -334,43 +334,48 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-10 overflow-y-auto pointer-events-none"
+      className="fixed inset-0 z-10 overflow-y-auto pointer-events-none scrollbar-hide"
     >
       {/* Section Services - disparaît lors du scroll */}
-      <div className="h-screen flex items-center justify-start px-64 pt-32 pointer-events-auto">
-        <div ref={servicesRef} className="space-y-8">
+      <div className="h-screen flex items-center justify-start px-6 md:px-20 lg:px-64 pt-32 pointer-events-auto">
+        <div ref={servicesRef} className="space-y-6 md:space-y-8">
           {services.map((service, index) => (
             <div key={index} className="relative group">
               <h2
-                className="text-white text-[36px] font-bold uppercase tracking-wider cursor-pointer hover:text-gray-300 transition-colors duration-300"
+                className="text-white text-2xl md:text-[36px] font-bold uppercase tracking-wider Ò hover:text-gray-300 transition-colors duration-300"
                 style={{ fontFamily: 'Satoshi, sans-serif' }}
               >
                 {service}
               </h2>
             </div>
           ))}
+
+          {/* Scroll Indicator */}
+          <div className="pt-8 md:pt-16 flex flex-col items-center text-white mr-30 animate-pulse">
+            <span className="text-xs tracking-[0.2em] font-light mb-2" style={{ fontFamily: 'Satoshi, sans-serif' }}>SCROLL TO EXPLORE</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="animate-bounce">
+              <path d="M12 4v16m0 0l-6-6m6 6l6-6" />
+            </svg>
+          </div>
         </div>
       </div>
 
       {/* Section Galerie - apparaît après le scroll, devient sticky à 40vh et prend 60% de hauteur */}
-      <div className="h-[150vh] px-16 flex justify-start pointer-events-auto">
+      <div className="h-[150vh] px-4 md:px-16 flex justify-start pointer-events-auto">
         {/* Container galerie */}
         <div
-          className="sticky"
+          className="sticky w-full lg:w-fit lg:min-w-[60%] max-w-full"
           style={{
             top: '30vh',
             height: '60vh',
-            zIndex: 20,
-            width: 'fit-content',
-            minWidth: '60%',
-            maxWidth: '100%'
+            zIndex: 20
           }}
         >
           <div className="h-full flex flex-col relative">
             {/* Barre de filtres - toujours visible et fixe au-dessus de la galerie */}
             <div
               ref={filtersRef}
-              className="flex items-center gap-20 mb-4 bg-black/80 backdrop-blur-sm py-2 flex-shrink-0 w-fit sticky top-0"
+              className="flex flex-wrap items-center gap-4 md:gap-20 mb-4 bg-black/80 backdrop-blur-sm py-2 flex-shrink-0 w-full lg:w-fit sticky top-0"
               style={{ zIndex: 30 }}
             >
               {filters.length === 0 && (
@@ -400,22 +405,11 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
             {/* Galerie simple - grille ordonnée sans espaces */}
             <div
               ref={galleryRef}
-              className="overflow-y-auto overflow-x-hidden flex-1 w-[95%]"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none'
-              }}
+              className="overflow-y-auto overflow-x-hidden flex-1 w-full md:w-[95%] scrollbar-hide"
             >
-              <style jsx>{`
-                div::-webkit-scrollbar {
-                  display: none;
-                }
-              `}</style>
               <div
-                className="grid"
+                className="grid grid-cols-2 lg:grid-cols-4 auto-rows-[150px] md:auto-rows-[200px]"
                 style={{
-                  gridTemplateColumns: 'repeat(4, 1fr)',
-                  gridAutoRows: '200px',
                   gridAutoFlow: 'dense',
                   gap: '10px',
                   margin: 0,
@@ -466,13 +460,14 @@ export default function Service({ isVisible, onProjectClick, onProjectsLoaded }:
                     rowSpan = 2;
                   }
 
+                  const colClass = colSpan === 2 ? 'col-span-2' : '';
+                  const rowClass = rowSpan === 2 ? 'row-span-2' : '';
+
                   return (
                     <div
                       key={project.id}
-                      className="group cursor-pointer overflow-hidden bg-gray-900 relative"
+                      className={`group cursor-pointer overflow-hidden bg-gray-900 relative ${colClass} ${rowClass}`}
                       style={{
-                        gridColumn: `span ${colSpan}`,
-                        gridRow: `span ${rowSpan}`,
                         margin: 0,
                         padding: 0
                       }}

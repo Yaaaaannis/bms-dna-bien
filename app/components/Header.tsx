@@ -19,7 +19,7 @@ export default function Header({
   return (
     <header className="fixed top-0 left-0 z-40 p-8 transition-opacity duration-300 opacity-100 w-full">
       {/* Fond noir solide pour masquer complètement le contenu qui passe derrière */}
-      <div className="absolute inset-0 bg-black pointer-events-none" style={{ height: '200px', width: '50%' }}></div>
+      <div className="absolute inset-0 bg-black pointer-events-none w-[80%] lg:w-[50%]" style={{ height: '200px' }}></div>
 
       <div className="flex items-start space-x-40 relative z-10">
         {/* Logo */}

@@ -54,36 +54,40 @@ export default function Background({ servicePoints, isCollectifVisible, isProjet
       ? { x: 0.701, y: 0.358, z: 0.752 }  // Échelle pour Collectif
       : { x: 0.701, y: 0.700, z: 0.752 };  // Échelle par défaut
 
-    // Animation GSAP avec timeline pour synchroniser toutes les propriétés
-    const tl = gsap.timeline({
-      ease: "power2.inOut",
-      duration: 1.2
+    // Animation GSAP avec timeline séquentielle
+    const tl = gsap.timeline();
+
+    // 1. Disparition (Scale down to 0)
+    tl.to(modelDataRef.current.scale, {
+      duration: 0.5,
+      ease: "power2.in",
+      x: 0,
+      y: 0,
+      z: 0,
+      onUpdate: () => forceUpdate({})
     });
 
-    tl.to(modelDataRef.current.position, {
-      duration: 1.2,
-      ease: "power2.inOut",
-      ...targetPosition,
-      onUpdate: () => {
-        forceUpdate({});
-      }
-    })
-      .to(modelDataRef.current.rotation, {
-        duration: 1.2,
-        ease: "power2.inOut",
-        ...targetRotation,
-        onUpdate: () => {
-          forceUpdate({});
-        }
-      }, 0) // Commence en même temps que la position
-      .to(modelDataRef.current.scale, {
-        duration: 1.2,
-        ease: "power2.inOut",
-        ...targetScale,
-        onUpdate: () => {
-          forceUpdate({});
-        }
-      }, 0); // Commence en même temps que la position
+    // 2. Téléportation (Changement instantané de position/rotation pendant que invisible)
+    tl.add(() => {
+      // Mise à jour directe des refs sans animation
+      modelDataRef.current.position.x = targetPosition.x;
+      modelDataRef.current.position.y = targetPosition.y;
+      modelDataRef.current.position.z = targetPosition.z;
+
+      modelDataRef.current.rotation.x = targetRotation.x;
+      modelDataRef.current.rotation.y = targetRotation.y;
+      modelDataRef.current.rotation.z = targetRotation.z;
+
+      forceUpdate({});
+    });
+
+    // 3. Réapparition (Scale up to target)
+    tl.to(modelDataRef.current.scale, {
+      duration: 0.6,
+      ease: "back.out(1.2)", // Léger rebond pour un effet "pop"
+      ...targetScale,
+      onUpdate: () => forceUpdate({})
+    }, "+=0.1"); // Petite pause avant de réapparaître
   }, []);
 
   // Détecter le mobile et mettre à jour à la volée
