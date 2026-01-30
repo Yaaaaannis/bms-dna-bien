@@ -104,8 +104,8 @@ export default function Contact({ isVisible }: ContactProps) {
           mail: '',
           message: ''
         });
-        // Réinitialiser le statut après 3 secondes
-        setTimeout(() => setSubmitStatus('idle'), 3000);
+        // On ne remet plus le statut à 'idle' automatiquement pour laisser le message visible
+        // setTimeout(() => setSubmitStatus('idle'), 3000);
       } else {
         const errorData = await response.json().catch(() => ({ error: 'Erreur inconnue' }));
         console.error('[contact] API error:', errorData);
@@ -154,127 +154,151 @@ export default function Contact({ isVisible }: ContactProps) {
           </div>
 
           {/* Formulaire */}
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 lg:space-y-8 max-w-3xl ml-0 lg:ml-32">
-            {/* Première ligne : NOM et PRÉNOM côte à côte */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-              <div className="flex flex-col field-container">
-                <label
-                  htmlFor="nom"
-                  className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                >
-                  NOM
-                </label>
-                <input
-                  type="text"
-                  id="nom"
-                  name="nom"
-                  value={formData.nom}
-                  onChange={handleChange}
-                  className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                />
-              </div>
-              <div className="flex flex-col field-container">
-                <label
-                  htmlFor="prenom"
-                  className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                >
-                  PRÉNOM
-                </label>
-                <input
-                  type="text"
-                  id="prenom"
-                  name="prenom"
-                  value={formData.prenom}
-                  onChange={handleChange}
-                  className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                />
-              </div>
-            </div>
+          <div className="relative min-h-[400px]">
+            {submitStatus === 'success' ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-6 fade-in">
 
-            {/* Champs en colonne */}
-            <div className="flex flex-col space-y-4 lg:space-y-8">
-              <div className="flex flex-col field-container">
-                <label
-                  htmlFor="specialite"
-                  className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
+                <h3
+                  className="text-2xl md:text-4xl font-bold text-white uppercase tracking-wider"
+                  style={{ fontFamily: 'DrukWideBold, sans-serif' }}
+                >
+                  MESSAGE REÇU
+                </h3>
+                <p
+                  className="text-white/80 text-sm md:text-base max-w-md mx-auto leading-relaxed"
                   style={{ fontFamily: 'Satoshi, sans-serif' }}
                 >
-                  SPÉCIALITÉ / TALENT (OPTIONNEL)
-                </label>
-                <input
-                  type="text"
-                  id="specialite"
-                  name="specialite"
-                  value={formData.specialite}
-                  onChange={handleChange}
-                  className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                />
-              </div>
-              <div className="flex flex-col field-container">
-                <label
-                  htmlFor="mail"
-                  className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
+                  Merci de nous avoir contactés. <br />
+                  Nous reviendrons vers vous dans les plus brefs délais.
+                </p>
+                <button
+                  onClick={() => setSubmitStatus('idle')}
+                  className="mt-8 bg-white text-black text-xs md:text-sm uppercase tracking-widest py-3 px-8 hover:bg-gray-200 transition-colors"
+                  style={{ fontFamily: 'DrukWideBold, sans-serif' }}
                 >
-                  MAIL
-                </label>
-                <input
-                  type="email"
-                  id="mail"
-                  name="mail"
-                  value={formData.mail}
-                  onChange={handleChange}
-                  className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                />
+                  NOUVEAU MESSAGE
+                </button>
               </div>
-              <div className="flex flex-col field-container">
-                <label
-                  htmlFor="message"
-                  className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                >
-                  MESSAGE (OPTIONNEL)
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={1}
-                  className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2 resize-none overflow-hidden"
-                  style={{ fontFamily: 'Satoshi, sans-serif' }}
-                />
-              </div>
-            </div>
+            ) : (
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 lg:space-y-8 max-w-3xl ml-0 lg:ml-32 transition-opacity duration-500">
+                {/* Première ligne : NOM et PRÉNOM côte à côte */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                  <div className="flex flex-col field-container">
+                    <label
+                      htmlFor="nom"
+                      className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    >
+                      NOM
+                    </label>
+                    <input
+                      type="text"
+                      id="nom"
+                      name="nom"
+                      value={formData.nom}
+                      onChange={handleChange}
+                      className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    />
+                  </div>
+                  <div className="flex flex-col field-container">
+                    <label
+                      htmlFor="prenom"
+                      className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    >
+                      PRÉNOM
+                    </label>
+                    <input
+                      type="text"
+                      id="prenom"
+                      name="prenom"
+                      value={formData.prenom}
+                      onChange={handleChange}
+                      className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    />
+                  </div>
+                </div>
 
-            {/* Bouton Envoyer */}
-            <div className="flex flex-col field-container mt-8">
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="bg-transparent border border-white text-white uppercase tracking-wider py-3 px-8 hover:bg-white hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ fontFamily: 'DrukWideBold, sans-serif' }}
-              >
-                {isSubmitting ? 'ENVOI...' : submitStatus === 'success' ? 'ENVOYÉ ✓' : submitStatus === 'error' ? 'ERREUR' : 'ENVOYER'}
-              </button>
-              {submitStatus === 'success' && (
-                <p className="text-green-400 text-sm mt-2" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-                  Message envoyé avec succès !
-                </p>
-              )}
-              {submitStatus === 'error' && (
-                <p className="text-red-400 text-sm mt-2" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-                  {errorMessage || 'Erreur lors de l&apos;envoi. Veuillez réessayer.'}
-                </p>
-              )}
-            </div>
-          </form>
+                {/* Champs en colonne */}
+                <div className="flex flex-col space-y-4 lg:space-y-8">
+                  <div className="flex flex-col field-container">
+                    <label
+                      htmlFor="specialite"
+                      className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    >
+                      SPÉCIALITÉ / TALENT (OPTIONNEL)
+                    </label>
+                    <input
+                      type="text"
+                      id="specialite"
+                      name="specialite"
+                      value={formData.specialite}
+                      onChange={handleChange}
+                      className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    />
+                  </div>
+                  <div className="flex flex-col field-container">
+                    <label
+                      htmlFor="mail"
+                      className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    >
+                      MAIL
+                    </label>
+                    <input
+                      type="email"
+                      id="mail"
+                      name="mail"
+                      value={formData.mail}
+                      onChange={handleChange}
+                      className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    />
+                  </div>
+                  <div className="flex flex-col field-container">
+                    <label
+                      htmlFor="message"
+                      className="text-white text-[10px] md:text-sm uppercase tracking-wider mb-2"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    >
+                      MESSAGE (OPTIONNEL)
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={1}
+                      className="bg-transparent border-0 border-b border-white text-white focus:outline-none focus:border-white pb-2 resize-none overflow-hidden"
+                      style={{ fontFamily: 'Satoshi, sans-serif' }}
+                    />
+                  </div>
+                </div>
+
+                {/* Bouton Envoyer */}
+                <div className="flex flex-col field-container mt-8">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-transparent border border-white text-white uppercase tracking-wider py-3 px-8 hover:bg-white hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ fontFamily: 'DrukWideBold, sans-serif' }}
+                  >
+                    {isSubmitting ? 'ENVOI...' : 'ENVOYER'}
+                  </button>
+
+                  {submitStatus === 'error' && (
+                    <p className="text-red-400 text-sm mt-2" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+                      {errorMessage || 'Erreur lors de l\'envoi. Veuillez réessayer.'}
+                    </p>
+                  )}
+                </div>
+              </form>
+            )}
+          </div>
 
           {/* Email de contact */}
 
