@@ -1,22 +1,22 @@
 [
     {
         "fileNumber": "DNA#0001",
-        "crime": "CREATIVE",
+        "crime": "Ecriture",
         "sruId": "K002",
         "idCode": "#ID75VL4563MD1DNA28",
         "name": "FLAME",
         "handle": "@Imaginary_Flame",
         "pronouns": "He/Him",
-        "job": "Montage / Photo",
+        "job": "Montage, écriture",
         "mail": "contact.flame@gmail.com",
-        "missions": "Montage video, Photographie, Illustration, Storytelling, Développement, Création de contenu",
-        "description": "Ebit ut facereperrum in conet esserum eum, officit porepe nonsent voluptatur sunt volessinctor moditate venit adis re labore omnient aut min poriores asinctatur resectempos eum faccab invelitatque.",
+        "missions": "Création de contenu, Ecriture, Développement, Animation",
+        "description": "Héros à mi-temps qui est créateur de contenus, écrivain, apprenti-développeur l'autre moitié du temps. Et j'apprends l'animation et le dessin pour être mangaka, voire animateur 2D/3D ! Mon objectif : créer une licence transmédia qui mettrait en avant mon rêve de voir un monde uni et en paix ! Mon second rêve : avoir un harem de cosplayeuses (voire juste un harem) !",
         "image": "/images/flame.jpg",
-        "cardImage": "/images/flame.jpg"
+        "cardImage": "/images/flame-dessin.png"
     },
     {
         "fileNumber": "DNA#0002",
-        "crime": "CREATIVE",
+        "crime": "Photos",
         "sruId": "K003",
         "idCode": "#ID75VL4563MD1DNA29",
         "name": "IDAMAH",
@@ -27,7 +27,7 @@
         "missions": "Réalisation,Photographie",
         "description": "Véritable artiste créatif baignant dans l’industrie de l’audiovisuel et du cinéma, avec pour objectif de façonner de nouvelles histoires de manière innovante.",
         "image": "/images/idamah.jpg",
-        "cardImage": "/images/idamah.jpg"
+        "cardImage": "/images/idamah-dessin.png"
     },
     {
         "fileNumber": "DNA#0003",
@@ -46,36 +46,21 @@
     },
     {
         "fileNumber": "DNA#0004",
-        "crime": "CREATIVE",
-        "sruId": "K005",
-        "idCode": "#ID75VL4563MD1DNA31",
-        "name": "DEMAGE",
-        "handle": "@super",
-        "pronouns": "He/Him",
-        "job": "Motion Designer",
-        "mail": "contact.demage@gmail.com",
-        "missions": "Motion Design, 3D, Animation, VFX",
-        "description": "Ebit ut facereperrum in conet esserum eum, officit porepe nonsent voluptatur sunt volessinctor moditate venit adis re labore omnient aut min poriores asinctatur resectempos eum faccab invelitatque.",
-        "image": "/images/demage.jpg",
-        "cardImage": "/images/demage.jpg"
-    },
-    {
-        "fileNumber": "DNA#0005",
-        "crime": "CREATIVE",
+        "crime": "Direction artistique",
         "sruId": "K006",
         "idCode": "#ID75VL4563MD1DNA32",
         "name": "YACINE",
         "handle": "@yacinetha",
         "pronouns": "He/Him",
-        "job": "Filmmaker",
+        "job": "Directeur Artistique",
         "mail": "contact.yacine@gmail.com",
-        "missions": "Photographie, Cinématographie, Montage Vidéo",
-        "description": "Ola de non cus ad most laborem enditi cusapis velendis sam venis arum eum quiassus.",
+        "missions": "Direction artistique",
+        "description": " sfmjqsniufbqsiu qs iuhfuisqb fsq iuqshiu hqsiu dhqsiu qi uiqs hdiqsh iudhsq iuh duqshdiuqshdiushq  ",
         "image": "/images/yacine.jpg",
-        "cardImage": "/images/yacine.jpg"
+        "cardImage": "/images/yacine-dessin.png"
     },
     {
-        "fileNumber": "DNA#0006",
+        "fileNumber": "DNA#0005",
         "crime": "Branding, UI/UX",
         "sruId": "K007",
         "idCode": "#ID75VL4563MD1DNA33",
@@ -90,22 +75,22 @@
         "cardImage": "/images/june-dessin.png"
     },
     {
-        "fileNumber": "DNA#0007",
-        "crime": "CREATIVE",
+        "fileNumber": "DNA#0006",
+        "crime": "Montage",
         "sruId": "K008",
         "idCode": "#ID75VL4563MD1DNA34",
         "name": "JOJO",
         "handle": "@Jojolepaga",
         "pronouns": "He/Him",
-        "job": "Backend Developer",
-        "mail": "contact.jojo@gmail.com",
-        "missions": "Développement, Backend, API, Base de données",
-        "description": "Renienit adis magnis aritem dus a nitat est pla iur assimod ut lam estis sandicimo blautemquat ium qui ut vit hilla.",
+        "job": "Monteur",
+        "mail": "",
+        "missions": "Montage",
+        "description": "Tu as besoin d’un montage pour un projet (marque, clip, vidéo d’annonce…) ? Je suis là pour donner vie à tes idées et sublimer le tout. Travaillant sur After Effects, je mettrai en valeur et sublimerai ton projet !",
         "image": "/images/jojo.jpg",
-        "cardImage": "/images/jojo.jpg"
+        "cardImage": "/images/jojo-dessin.png"
     },
     {
-        "fileNumber": "DNA#0008",
+        "fileNumber": "DNA#0007",
         "crime": "Graphic Design, 3D",
         "sruId": "K009",
         "idCode": "#ID75VL4563MD1DNA35",
@@ -117,6 +102,6 @@
         "missions": "Graphic Design, 3D",
         "description": "Jeune créatif breton explorant des terrains multiples, j'aspire à incarner une nouvelle manière de produire du design : libre, ouverte et affranchie. Je cherche à capter les récits de notre époque, de les transformer en expériences visuelles tout en gardant une démarche contemporaine, responsable et engagée.",
         "image": "/images/alan.jpg",
-        "cardImage": "/images/alan.jpg"
+        "cardImage": "/images/alan-dessin.png"
     }
 ]

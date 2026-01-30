@@ -114,6 +114,7 @@ export default function Background({ servicePoints, isCollectifVisible, isProjet
     <div className="fixed inset-0 w-full h-full">
       <Canvas
         camera={{ position: [1, 5, 2], fov: 75 }}
+        dpr={isMobile ? 1 : [1, 2]} // Optimisation DPR pour mobile
         style={{
           background: 'black',
           width: '100%',
@@ -130,7 +131,7 @@ export default function Background({ servicePoints, isCollectifVisible, isProjet
           position={[5, -3, 2]}
           intensity={1.2}
           target-position={[2.885, 0, 2.439]}
-          castShadow
+          castShadow={!isMobile} // Pas d'ombres sur mobile
         />
         <pointLight position={[3, -2, 1]} intensity={0.5} color="#ffffff" />
 
@@ -141,6 +142,7 @@ export default function Background({ servicePoints, isCollectifVisible, isProjet
           rotation={[modelDataRef.current.rotation.x, modelDataRef.current.rotation.y, modelDataRef.current.rotation.z]}
           isAnimated={true}
           onConnectionPointsUpdate={handleConnectionPointsUpdate}
+          isMobile={isMobile}
         />
 
         {/* Points 3D correspondant aux services - retirés */}

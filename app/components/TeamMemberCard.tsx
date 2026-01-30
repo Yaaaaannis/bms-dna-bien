@@ -81,6 +81,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                             alt="BMS DNA Logo"
                             fill
                             className="object-contain"
+                            loading="lazy"
                         />
                     </div>
                 </div>
@@ -98,6 +99,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                                 alt={member.name}
                                 fill
                                 className="object-cover"
+                                loading="lazy"
                             />
                         </div>
                     </div>
@@ -129,6 +131,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                                 alt={member.name}
                                 fill
                                 className="object-cover"
+                                loading="lazy"
                             />
                         </div>
                     </div>
@@ -145,6 +148,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                                 width={541}
                                 height={249}
                                 className="w-full h-auto block"
+                                loading="lazy"
                             />
                         </div>
                     </div>
@@ -191,6 +195,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
                         fill
                         className="object-cover"
                         unoptimized
+                        loading="lazy"
                     />
                 </div>
 
